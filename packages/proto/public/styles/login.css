@@ -1,0 +1,90 @@
+/* Full page background */
+.page {
+  height: 100vh;
+  width: 100%;
+  background-image: url("/images/signin_background.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login card */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+
+  /* glass effect */
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  font-size: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+img {
+  width: 100px;
+  height: auto;
+}
+
+h1 {
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+/* Inputs */
+input {
+  width: 93%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid #aaa;
+  font-size: 16px;
+}
+
+/* Forgot password link */
+.forgot {
+  display: block;
+  text-align: left;
+  margin-top: 8px;
+  color: #2a5db0;
+  font-size: 15px;
+}
+
+/* Login button */
+.loginBtn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #21b80f;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.loginBtn:hover {
+  background: #1a970c;
+}
+
+/* bottom text */
+.signup {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.signup a {
+  color: #2a5db0;
+}

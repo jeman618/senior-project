@@ -1,0 +1,46 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-primary);
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-foreground);
+    padding-left: 5px;
+}
+
+header.h1 {
+    text-align: left;
+}
+
+.topnav {
+    overflow: hidden;
+    padding: 10px;
+}
+
+.middle {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.middle h1 {
+    text-align: center;
+}
+
+.bottom h1 {
+    text-align: left;
+}
+
+img {
+    width: 15%;
+    height: auto;
+}
+
+div.bottom {
+    background-color: var(--color-body-bottom);
+    color: var(--color-bottom)
+}

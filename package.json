@@ -1,0 +1,24 @@
+{
+  "name": "senior-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server /packages/proto/dist",
+    "dev": "vite packages/proto/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.91.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "http-server": "^14.1.1",
+    "postgres": "^3.4.8"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
