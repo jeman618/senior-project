@@ -13,9 +13,9 @@ app.get("/", (req, res) => {
 
 app.get("/users", async (req, res) => {
     try {
-        const users = await sql
-        .from("users")
-        .select("*");
+        const users = await sql`
+        SELECT * FROM users
+        `;
         res.json(users);
     } catch (err) {
         res.status(500).json({ message: "Server error" });
