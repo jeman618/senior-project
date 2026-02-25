@@ -3,7 +3,7 @@ import sql from './database.js';
 import { exec } from 'child_process';
 
 async function getPlant() {
-  exec("python3 packages/proto/src/api.py ", async (error, stdout, stderr) => {
+  exec("python3 plant_api.py ", async (error, stdout, stderr) => {
     if (error) {
       console.error(`Error starting API server: ${error}`);
       return;
@@ -25,7 +25,7 @@ async function getPlant() {
 
 async function setPlant() {
   
-  exec("python3 packages/proto/api.py ", async (error, stdout, stderr) => {
+  exec("python3 plant_api.py ", async (error, stdout, stderr) => {
     if (error) {
       console.error(`Error starting API server: ${error}`);
       return;

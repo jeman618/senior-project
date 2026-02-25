@@ -7,40 +7,152 @@ header {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--color-foreground);
-    padding-left: 5px;
+    padding-right: 5px;
 }
 
 header.h1 {
     text-align: left;
 }
 
+.title {
+    display: flex;
+    align-items: center;
+}
+
 .topnav {
     overflow: hidden;
-    padding: 10px;
+    background-color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  color: var(--color-foreground);
+  font-size: 2rem;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.promo {
+    align-self: center;
+    width: 99%;
+    height: 500px;
+    margin: 10px;
+    filter: brightness(60%);
+}
+
+.featured {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 2rem;
 }
 
 .middle {
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-size: 24px;
 }
 
 .middle h1 {
+    margin: 0px;
     text-align: center;
 }
+
 
 .bottom h1 {
     text-align: left;
 }
 
-img {
-    width: 15%;
+.logo{
+    width: 10%;
     height: auto;
 }
 
-div.bottom {
+.login {
+    width: 5%;
+    height: auto;
+    cursor: pointer;
+}
+
+img {
+    width: 10%;
+    height: auto;
+    margin: 10px;
+}
+
+.bottom {
     background-color: var(--color-body-bottom);
-    color: var(--color-bottom)
+    color: var(--color-bottom);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.info {
+    width: 50%;
+    height: auto;
+    margin: 10px;
+    border: 5px solid var(--color-primary);
+}
+
+.photo-info {
+    width: 30%;
+    height: auto;
+    margin: 10px;
+    border: 5px solid var(--color-primary);
+}
+
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.table-container {
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    height: auto;
+    margin: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown img {
+  width: 75%;
+  height: auto;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 5%;
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  text-align: center;
+}
+
+.dropdown-content a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block; /* Show the content on hover */
 }

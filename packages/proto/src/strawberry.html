@@ -10,21 +10,80 @@
 </head>
 
 <header>
-        <h1>Gardening Website</h1>
-        <div class="topnav">
-          <input type="text" placeholder="Search..">
-          <button type="submit">Search</button>
-        </div>
-        <button class="login"><a href="./login.html">Login</a></button>
+    <div class="title">
+      <img class="logo" src="/images/logo.png" alt = ""/>
+      <h1>GardenGuru</h1>
+    </div>
+    <div class="topnav">
+      <input type="text" placeholder="Search..">
+    </div>
+    <img class="login" src="/images/user.png" alt="Login" 
+    onclick="window.location.href='/src/login.html'"/>
   </header> 
-
-<body class="middle">
-    <h1 id="plant"></h1>
+<body>
+<div class="middle">
     <h1>Strawberry</h1>
-    <img src="/plants/img_strawberry.png" alt="Strawberry"/>
-    <h2>Nutritional Information</h2>
-    <p>Fat free, saturated fat free, cholesterol free, 
-        sodium free, high in vitamin C and folate.</p>
+    <div class="description">
+        <img class="photo-info" src="/plants/img_strawberry.png" alt="Strawberry"/>
+        <div class="table-container">
+        <table id="plant" border="1">
+        <h2>Nutritional Information</h2>
+        <br></br>
+        <thead>
+            <tr>
+                <th>Zones</th>
+                <th>Calories</th>
+                <th>Growth Time (days)</th>
+                <th>Fat (g)</th>
+                <th>Carbs (g)</th>
+                <th>Fiber (g)</th>
+            </tr>
+        </thead>
+        <tbody id="top"></tbody>
+        <thead>
+            <tr>
+                <th>Protein (g)</th>
+                <th>Sugars (g)</th>
+                <th>Potassium (mg)</th>
+                <th>Magnesium (mg)</th>
+                <th>Calcium (mg)</th>
+                <th>Vitamin C (%)</th>
+            </tr>
+        </thead>
+        <tbody id="bottom"></tbody>
+        </table>
+        </div>
+    </div>
+    <script>
+    fetch("http://localhost:8000/plants/Strawberry")
+    .then(res => res.json())
+    .then(data => {
+        const tableBody1 = document.querySelector("#plant #top");
+        const tableBody2 = document.querySelector("#plant #bottom");
+        data.forEach(plant => {
+            const row1 = document.createElement("tr");
+            const row2 = document.createElement("tr");
+            row1.innerHTML = `
+                <td>${plant.locations}</td>
+                <td>${plant.kcal}</td>
+                <td>${plant.growth_time}</td>
+                <td>${plant.fat}</td>
+                <td>${plant.carbohydrates}</td>
+                <td>${plant.fiber}</td>
+            `;
+            tableBody1.appendChild(row1);
+            row2.innerHTML = `
+                <td>${plant.protein}</td>
+                <td>${plant.sugars}</td>
+                <td>${plant.potassium}</td>
+                <td>${plant.magnesium}</td>
+                <td>${plant.calcium}</td>
+                <td>${plant.vitamin_c}</td>
+            `;
+            tableBody2.appendChild(row2);
+        });
+    });
+    </script>
     <h2>Description</h2>
     <p>The strawberry is a widely cultivated fruit that many people enjoy.
         It is known for its bright red color, juicy texture, and sweet flavor. 
@@ -34,10 +93,14 @@
         You can buy them at grocery stores, farmers markets, and even grow them in your own garden!
         If you want to grow them, here is what you need to know.
     </p>
+    <img class="info"src="/plants/strbry_info.png" alt="Strawberry Plant"/>
     <h2>How to Grow</h2>
     <p>Strawberries should be planted in growing zones 3-10 according to the USDA.
         They should be planted in spring in zone 6 and northward, and in fall in zone 7 and southward.
-        It is best to grow them in raised beds or containers to ensure good drainage and to prevent root rot.
+        It is best to grow them in raised beds or containers that have a depth of at least 8 inches to ensure good drainage and to prevent root rot.
+    </p>
+    <img class="info" src="/plants/strbry_bed.png" alt="Strawberry Bed"/>
+    <p>
         When you plant them, make sure to choose a location that gets plenty of sunlight and has well-drained soil.
         They need at least 8 hours of direct sunlight daily. Give them room to grow and space them
         around 18 inches apart. The soil should be acidic and have a pH between 5.5 and 6.8.
@@ -58,6 +121,10 @@
     <p>Strawberries are not true berries; 
     they are classified as aggregate fruits because they form from multiple flowers on a single plant.
     </p>
-    
+<div class="bottom">
+      <h1>About Us</h1>
+</div>
+</div>
+
 </body>
 </html>

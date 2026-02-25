@@ -30,9 +30,9 @@ for nutrient in food.get("foodNutrients"):
 
     # convert to grams
     if (unit == "MG"):
-        value /= 1_000
+        value
     elif (unit == "UG"):
-        value /= 1_000_000
+        value
 
     nutrients[nutrient["nutrientName"]] = value
 

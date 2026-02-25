@@ -10,21 +10,36 @@
   </head>
   
   <header>
-        <h1>GardenGuru</h1>
-        <div class="topnav">
-          <input type="text" placeholder="Search..">
-          <button type="submit">Search</button>
-        </div>
-        <button class="login"><a href="/src/login.html">Login</a></button>
+    <div class="title">
+      <img class="logo" src="/images/logo.png" alt = ""/>
+      <h1>GardenGuru</h1>
+    </div>
+    <div class="topnav">
+      <input type="text" placeholder="Search..">
+    </div>
+    <div class="dropdown">
+      <img class="login" src="/images/user.png" alt="Login" 
+        onclick="window.location.href='/src/login.html'"/>
+      <div class="dropdown-content">
+        <a href="/src/user.html"><p>Profile</p></a>
+        <a href="/src/login.html"><p>Sign In</p></a>
+        <a href="/src/signup.html"><p>Sign Up</p></a>
+      </div>
+    </div>
   </header> 
-  <body class = "middle">
-      <h1>Welcome to Gardening website!</h1>
+  <body>
+    <div class="middle">
+        <img class="promo" src="/images/promo.png" alt=""/>
+        <div class="centered">Learn to grow your favorite plants</div>
       <br></br>
+      <h1 class="featured">Featured Plants</h1>
       <a href="/src/strawberry.html"><img src="/plants/img_strawberry.png" alt="Strawberry"/></a>
       <img src="/plants/img_banana.png" alt="Banana"/>
       <br></br>
+      <a href="/src/user.html">user</a>
     <div class="bottom">
       <h1>About Us</h1>
+    </div>
     </div>
 
   </body>

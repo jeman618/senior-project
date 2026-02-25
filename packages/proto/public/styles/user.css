@@ -1,0 +1,21 @@
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  
+  padding: 40px;
+  border-radius: 20px;
+  margin: 40px;
+
+  background: var(--color-box);
+}
