@@ -1,10 +1,17 @@
 import express from "express";
 import sql from "./database.js";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Debugging for endpoints
+// app.use((req, _res, next) => {
+//   console.log("INCOMING: ", req.method, req.path);
+//   next();
+// });
 const port = 8000;
 
 app.get("/", (req, res) => {
@@ -22,17 +29,44 @@ app.get("/users", async (req, res) => {
     }
 });
 
-app.post("/user/:id", async (req, res) => {
-    const { data } = req.params
+app.post("/users", async (req, res) => {
+    const { data } = req.body
 
     try {
         await sql`
         UPDATE users
         SET name = ${data.name}, email = ${data.email}, password = ${data.password}
+        WHERE id = ${data.id}
         `
-
         console.log("Updated user: ", data)
         res.json(data)
+    }
+    catch (err) {
+        res.status(500).json({message: "Server error"});
+    }
+});
+
+app.get("/users/profile", async (req, res) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return res.status(401).json({message: "No token provided"})
+    }
+
+    const token = authHeader.split(" ")[1];
+    
+    try {
+        const decoded = jwt.verify(token, "your_secret_key")
+        const data = await sql`
+        SELECT *
+        FROM users
+        WHERE id = ${decoded.id}
+        `
+        if (!data || data.length === 0) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        console.log("User profile: ", data)
+        return res.json(data[0])
     }
     catch (err) {
         res.status(500).json({message: "Server error"});
@@ -126,7 +160,13 @@ app.post("/login", async (req, res) => {
             return res.status(401).json({ message: "Wrong password" });
         }
 
-        res.json({ message: "Login success", user });
+        const token = jwt.sign(
+            {id: user.id},
+            "your_secret_key",
+            {expiresIn: "1h"}
+        )
+
+        res.json({token})
     } catch (err) {
         res.status(500).json({ message: "Server error" });
     }

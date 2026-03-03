@@ -1,0 +1,27 @@
+.info {
+    width: 30%;
+    height: auto;
+    margin: 10px;
+    border: 5px solid var(--color-primary);
+}
+
+.photo-info {
+    width: 25%;
+    height: auto;
+    margin: 10px;
+    border: 5px solid var(--color-primary);
+}
+
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.table-container {
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    height: auto;
+    margin: 10px;
+}

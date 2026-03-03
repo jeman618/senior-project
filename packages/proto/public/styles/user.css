@@ -8,14 +8,24 @@
 
 .card {
   align-items: center;
-  display: flex;
-  flex-direction: column;
   width: 90%;
   max-width: 1200px;
-  
+
   padding: 40px;
   border-radius: 20px;
   margin: 40px;
 
   background: var(--color-box);
+}
+
+.row {
+  display: grid;
+  text-align: left;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.row h1 {
+  text-align: left;
 }

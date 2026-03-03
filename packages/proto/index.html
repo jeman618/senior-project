@@ -17,24 +17,35 @@
     <div class="topnav">
       <input type="text" placeholder="Search..">
     </div>
-    <div class="dropdown">
-      <img class="login" src="/images/user.png" alt="Login" 
-        onclick="window.location.href='/src/login.html'"/>
-      <div class="dropdown-content">
-        <a href="/src/user.html"><p>Profile</p></a>
-        <a href="/src/login.html"><p>Sign In</p></a>
-        <a href="/src/signup.html"><p>Sign Up</p></a>
-      </div>
-    </div>
+    <div id="dropMenu"></div>
+    <script type="module" src="/src/dropMenu.jsx"></script>
   </header> 
   <body>
     <div class="middle">
-        <img class="promo" src="/images/promo.png" alt=""/>
-        <div class="centered">Learn to grow your favorite plants</div>
-      <br></br>
-      <h1 class="featured">Featured Plants</h1>
-      <a href="/src/strawberry.html"><img src="/plants/img_strawberry.png" alt="Strawberry"/></a>
-      <img src="/plants/img_banana.png" alt="Banana"/>
+        <div class="promo">
+        <img class="promo-img" src="/images/promo.png" alt=""/>
+        <div class="promo-txt">Learn to grow your favorite plants</div>
+        </div>
+      <h1 class="featured-title">Featured Plants</h1>
+      <div class="featured">
+        <div class="featured-img">
+        <h3>Strawberry</h3>
+        <img src="/plants/img_strawberry.png" alt="Strawberry" 
+        onclick="window.location.href='/src/strawberry.html'"/>
+        </div>
+        <div class="featured-img">
+        <h3>Banana</h3>
+        <img src="/plants/img_banana.png" alt="Banana"/>
+        </div>
+        <div class="featured-img">
+          <h3>Raspberry</h3>
+        <img src="/plants/img_raspberry.png" alt="Raspberry"/>
+        </div>
+        <div class="featured-img">
+        <h3>Blackberry</h3>
+        <img src="/plants/img_blackberry.png" alt="Blackberry"/>
+        </div>
+      </div>
       <br></br>
       <a href="/src/user.html">user</a>
     <div class="bottom">

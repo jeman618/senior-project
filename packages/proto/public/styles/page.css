@@ -33,27 +33,32 @@ header.h1 {
   color: white;
 }
 
-.centered {
-  color: var(--color-foreground);
-  font-size: 2rem;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.promo {
+    position: relative;
+    width: 100%;
+    align-self: center;
 }
 
-.promo {
+.promo-img {
     align-self: center;
-    width: 99%;
+    width: 100%;
     height: 500px;
     margin: 10px;
     filter: brightness(60%);
 }
 
-.featured {
-    text-align: center;
-    color: var(--color-primary);
-    font-size: 2rem;
+.promo-txt {
+  color: var(--color-foreground);
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+body {
+    background-color: var(--color-background);
 }
 
 .middle {
@@ -68,6 +73,47 @@ header.h1 {
     text-align: center;
 }
 
+.featured {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 5%;
+}
+
+.featured-title {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 2rem;
+    padding-bottom: 10px;
+}
+
+.featured-img {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    max-width: 250px;
+    height: 350px;
+    padding: 10px;
+    background-color: var(--color-box);
+    border: 10px solid var(--color-box);
+    border-radius: 5px;
+}
+
+.featured-img img {
+    width: 100%;
+    height: auto;
+    max-width: 240px;
+    max-height: 280px;
+    object-fit: cover;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 5px solid var(--color-primary);
+}
 
 .bottom h1 {
     text-align: left;
@@ -97,34 +143,6 @@ img {
     margin-bottom: 10px;
 }
 
-.info {
-    width: 50%;
-    height: auto;
-    margin: 10px;
-    border: 5px solid var(--color-primary);
-}
-
-.photo-info {
-    width: 30%;
-    height: auto;
-    margin: 10px;
-    border: 5px solid var(--color-primary);
-}
-
-.description {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.table-container {
-    align-items: center;
-    text-align: center;
-    width: 50%;
-    height: auto;
-    margin: 10px;
-}
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -137,7 +155,7 @@ img {
 }
 
 .dropdown-content {
-  display: none; /* Hidden by default */
+  display: none;
   position: absolute;
   right: 5%;
   background-color: var(--color-background);
@@ -148,11 +166,12 @@ img {
   text-align: center;
 }
 
-.dropdown-content a {
+.dropdown-content a, button{
   color: var(--color-primary);
   text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {
-  display: block; /* Show the content on hover */
+  display: block;
+  cursor: pointer;
 }

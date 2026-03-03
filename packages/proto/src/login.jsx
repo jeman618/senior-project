@@ -31,6 +31,8 @@ function Login() {
             }
 
             if (res.status === 200) {
+                const data = await res.json();
+                localStorage.setItem("token", data.token)
                 window.location.href = "index.html";
             }
             

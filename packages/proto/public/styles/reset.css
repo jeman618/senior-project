@@ -3,12 +3,11 @@
     --color-foreground: #ffffff;
     --color-box: #f3f0e6;
     --color-primary: #428e43;
-    --color-secondary: #03dac6;
     --color-accent: #ff4081;
     --color-text: #000000;
     --color-text-secondary: #b0b0b0;
     --color-border: #b3b1b1;
     --color-body-bottom: #9a5909;
     --color-bottom: #ffffff;
-    --page-grid: 2;
+    --page-grid:3;
 }
