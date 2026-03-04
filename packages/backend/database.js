@@ -1,4 +1,4 @@
-// packages/proto/database.js
+// packages/backend/database.js
 import postgres from "postgres";
 import dotenv from "dotenv";
 

@@ -6,7 +6,7 @@
     "start": "npm run dev",
     "dev": "npm run dev:backend & npm run dev:frontend",
     "dev:backend": "npm --prefix packages/backend start",
-    "dev:frontend": "npm --prefix packages/proto run dev",
+    "dev:frontend": "npm --prefix packages/frontend run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

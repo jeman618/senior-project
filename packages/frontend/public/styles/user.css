@@ -29,3 +29,9 @@
 .row h1 {
   text-align: left;
 }
+
+.row h2 {
+  background-color: var( --color-user-info);
+  padding: 10px;
+  border-radius: 20px;
+}

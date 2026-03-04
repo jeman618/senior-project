@@ -6,7 +6,6 @@ async function getFavorites(user_id) {
     try {
         const res = await fetch(`http://localhost:8000/favorites/${user_id}`)
         const data = await res.json()
-        console.log(data[0])
         return data[0]
     }
     catch (err) {
@@ -97,12 +96,11 @@ function User() {
         </div>
         <h1>Favorites</h1>
         <div class="card">
-            <h1>Favorites</h1>
             <h2 id="favorites"></h2>
         </div>
 
+        <h1>Add New Plant</h1>
         <div class="card">
-            <h1>Add New Plant</h1>
             <h3>Add any plants you wish other users can grow! Just make sure you are an expert</h3>
         </div>
         </div>  
