@@ -1,3 +1,5 @@
+// packages/frontend/src/MyApp.jsx
+
 import React, { useState } from "react";
 
 function MyApp() {

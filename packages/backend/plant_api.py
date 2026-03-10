@@ -1,4 +1,4 @@
-# packages/proto/src/api/py
+# packages/backend/api.py
 import requests
 import json
 
@@ -27,12 +27,6 @@ for nutrient in food.get("foodNutrients"):
 
     if value is None:
         continue
-
-    # convert to grams
-    if (unit == "MG"):
-        value
-    elif (unit == "UG"):
-        value
 
     nutrients[nutrient["nutrientName"]] = value
 

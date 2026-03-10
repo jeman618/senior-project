@@ -1,3 +1,5 @@
+/* packages/frontend/styles/plant.css */
+
 .info {
     width: 30%;
     height: auto;
@@ -16,6 +18,11 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.description p {
+    padding: 10px;
+    font-size: 28px;
 }
 
 .table-container {
