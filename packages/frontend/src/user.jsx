@@ -3,12 +3,27 @@
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import { useForm } from "react-hook-form";
+import { userHeader } from "./header";
+
+function isTokenValid(token) {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.exp * 1000 > Date.now();
+    } catch (err) {
+        return false;
+    }
+}
+
+function redirectToLogin() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
 
 async function getFavorites(user_id) {
     try {
         const res = await fetch(`http://localhost:8000/favorites/${user_id}`)
         const data = await res.json()
-        return data[0]
+        return data
     }
     catch (err) {
         console.error("Failed to load favorites: ", err)
@@ -16,93 +31,79 @@ async function getFavorites(user_id) {
     }
 }
 
-async function loadProfile() {
-    const res = await fetch("http://localhost:8000/users/profile", {
-        headers: {
-            Authorization: "Bearer " + localStorage.getItem("token")
-        }
-    })
-
-    const user = await res.json();
-
-    const favorites = await getFavorites(user.id);
-    document.getElementById("favorites").innerText = JSON.stringify(favorites, null,);
-    document.getElementById("username").innerText = user.name;
-    document.getElementById("email").innerText = user.email;
-    document.getElementById("password").innerText = user.password;
-}
-
 function User() {
-    const {
-            register,
-            handleSubmit,
-            watch,
-            formState: { errors },
-        } = useForm();
-
-        const [loginError, setLoginError] = useState();
-            const emailValue = watch("email");
-            const passwordValue = watch("password");
+    const [user, setUser] = useState(null);
+    const [favorites, setFavorites] = useState([]);
+        
+    useEffect(() => {
+        async function loadProfile() {
+            const token = localStorage.getItem("token");
             
-            const onSubmit = async (data) => {
-                setLoginError("");
-                try {
-                    const res = await fetch("http://localhost:8000/user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(data),
-                    });
-        
-                    if (!res.ok) {
-                        setLoginError("Email or Password is not matching with our record");
-                        return;
-                    }
-        
-                    if (res.status === 200) {
-                        window.location.href = "index.html";
-                    }
-                    
-                }
-                catch (err) {
-                    setLoginError("An error occurred during login");
-                }
-            };
-        
-            useEffect(() => {
-                if ((emailValue || passwordValue) && loginError) {
-                    setLoginError("");
-                }
-            }, [emailValue, passwordValue]);
+            if (!token || !isTokenValid(token)) {
+                redirectToLogin();
+                return;
+            }
 
-    loadProfile()
+            const res = await fetch("http://localhost:8000/users/profile", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+
+            if (res.status === 401) {
+                redirectToLogin();
+                return;
+            }
+
+            const user = await res.json();
+            setUser(user);
+
+            const favorites = await getFavorites(user.id);
+            setFavorites(favorites || []);
+        }
+        loadProfile();
+    }, []);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
-        <div class="middle">
+        < userHeader />
+        <div className="middle">
         <h1>Account Information</h1>
-        <div class="card">
-            <div class="row">
+        <div className="card">
+            <div className="row">
             <h1>Name</h1>
-            <h2 id="username"></h2>
+            <h2>{user.name}</h2>
             </div>
-            <div class="row">
+            <div className="row">
             <h1>Email</h1>
-            <h2 id="email"></h2>
+            <h2>{user.email}</h2>
             </div>
-            <div class="row">
+            <div className="row">
             <h1>Password</h1>
-            <h2 id="password"></h2>
+            <h2>{user.password}</h2>
             </div>
         </div>
+
         <h1>Favorites</h1>
-        <div class="card">
-            <h2 id="favorites"></h2>
+        <div className="card">
+            <div className="favorites">
+                {favorites.length > 0 ? (
+                    favorites.map((favorite) => (
+                        
+                        <h2 key={favorite.id} id="favorite">{favorite.name}</h2>
+                    ))
+                ) : (
+                    <h2 id="favorite">No favorites yet.</h2>
+                )}
+            </div>
         </div>
 
         <h1>Add New Plant</h1>
-        <div class="card">
+        <div className="card">
             <h3>Add any plants you wish other users can grow! Just make sure you are an expert</h3>
         </div>
         </div>  
@@ -112,5 +113,4 @@ function User() {
 
 const container = document.getElementById("root");
 const root = ReactDOMClient.createRoot(container);
-loadProfile()
 root.render(<User />);

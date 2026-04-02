@@ -4,15 +4,36 @@ import React from "react";
 import ReactDOMClient from "react-dom/client";
 import { useState, useEffect } from "react";
 
+function isTokenValid(token) {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.exp * 1000 > Date.now();
+    } catch (err) {
+        return false;
+    }
+}
+
 function UserMenu() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        setIsLoggedIn(token);
+        try {
+            const token = localStorage.getItem("token");
+
+            if (token && isTokenValid(token)) {
+                setIsLoggedIn(true);
+            } 
+            else {
+                setIsLoggedIn(false);
+            }
+        }
+        catch (err) {
+            setIsLoggedIn(false);
+        }
     }, []);
 
     const handleLogout = () => {
+        setIsLoggedIn(false);
         localStorage.removeItem("token");
         window.location.href = "index.html"
     };
@@ -37,8 +58,6 @@ function UserMenu() {
     </div>
     </>
     )
-}
+};
 
-const container = document.getElementById("dropMenu");
-const root = ReactDOMClient.createRoot(container);
-root.render(<UserMenu />);
+export default UserMenu;

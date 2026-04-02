@@ -5,20 +5,31 @@ header {
     align-items: center;
     justify-content: space-between;
     background-color: var(--color-primary);
+    color: var(--color-foreground);
     text-align: left;
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--color-foreground);
     padding-right: 5px;
-}
-
-header.h1 {
-    text-align: left;
 }
 
 .title {
     display: flex;
     align-items: center;
+}
+
+a {
+    color: var(--color-foreground);
+    text-decoration: none;
+}
+
+.title a {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-primary);
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-right: 5px;
 }
 
 .topnav {
@@ -27,6 +38,21 @@ header.h1 {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    width: 500px;
+}
+
+.topnav input {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 40px;
+    background-color: var(--color-text-secondary);
+    width: 400px;
+    height: 50px
+}
+
+.topnav input::placeholder {
+    color: var(--color-text);
 }
 
 .container {
@@ -101,6 +127,7 @@ body {
     max-width: 250px;
     height: 350px;
     padding: 10px;
+    color: var(--color-text);
     background-color: var(--color-box);
     border: 10px solid var(--color-box);
     border-radius: 5px;

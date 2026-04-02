@@ -1,9 +1,11 @@
 import express from "express";
-import sql from "./database.js";
+import sql from "./access_db.js";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 
 const app = express();
+const port = 8000;
+
 app.use(cors());
 app.use(express.json());
 
@@ -12,7 +14,6 @@ app.use(express.json());
 //   console.log("INCOMING: ", req.method, req.path);
 //   next();
 // });
-const port = 8000;
 
 app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -65,7 +66,6 @@ app.get("/users/profile", async (req, res) => {
         if (!data || data.length === 0) {
             return res.status(404).json({ message: "User not found" });
         }
-        console.log("User profile: ", data)
         return res.json(data[0])
     }
     catch (err) {
@@ -79,7 +79,7 @@ app.get("/favorites/:user_id", async (req, res) => {
     try {
         const favorites = await sql`
         SELECT f.* FROM favorites f
-        JOIN user_favorites_list ufl ON f.id = ufl.user_id
+        JOIN user_favorites_list ufl ON f.id = ufl.favorites_id
         WHERE ufl.user_id = ${user_id}
         `;
 
@@ -93,6 +93,27 @@ app.get("/favorites/:user_id", async (req, res) => {
         res.status(500).json({message: "Server error"});
     }
 });
+
+app.get("/favorite/:favorite_id", async (req, res) => {
+    const { favorite_id } = req.params
+
+    try {
+        const favorites = await sql`
+        SELECT * FROM favorites
+        WHERE id = ${favorite_id}
+        `;
+
+        if (favorites.length == 0) {
+            return res.status(404).json({message : "Could not find favorites associated with user"})
+        }
+
+        res.json(favorites)
+    }
+    catch (err) {
+        res.status(500).json({message: "Server error"});
+    }
+});
+
 
 app.post("/favorites/:data", async (req, res) => {
     const { data } = req.params
@@ -163,7 +184,7 @@ app.post("/login", async (req, res) => {
         const token = jwt.sign(
             {id: user.id},
             "your_secret_key",
-            {expiresIn: "1h"}
+            {expiresIn: "3600s"}
         )
 
         res.json({token})
@@ -190,7 +211,13 @@ app.post("/signup", async (req, res) => {
             VALUES (${name}, ${email}, ${password})
         `;
 
-        res.json({ message: "Signup success" });
+        const token = jwt.sign(
+            {id: user.id},
+            "your_secret_key",
+            {expiresIn: "3600s"}
+        )
+
+        res.json({token});
     } catch (err) {
         res.status(500).json({ message: "Server error" });
     }

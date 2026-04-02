@@ -27,12 +27,15 @@ function Login() {
                 body: JSON.stringify(data),
             });
 
-            if (!res.ok) {
+            if (res.status === 500) {
+                setLoginError("An error occurred on the server");
+                return;
+            }
+            else if (!res.ok) {
                 setLoginError("Email or Password is not matching with our record");
                 return;
             }
-
-            if (res.status === 200) {
+            else {
                 const data = await res.json();
                 localStorage.setItem("token", data.token)
                 window.location.href = "index.html";
