@@ -1,5 +1,5 @@
 import express from "express";
-import sql from "./access_db.js";
+import pool from "./access_db.js";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 
@@ -21,10 +21,8 @@ app.get("/", (req, res) => {
 
 app.get("/users", async (req, res) => {
     try {
-        const users = await sql`
-        SELECT * FROM users
-        `;
-        res.json(users);
+        const users = await pool.query("SELECT * FROM users");
+        res.json(users.rows);
     } catch (err) {
         res.status(500).json({ message: "Server error" });
     }
