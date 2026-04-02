@@ -70,4 +70,4 @@ async function setPlant() {
   });
 }
 
-getPlant();
+setPlant();

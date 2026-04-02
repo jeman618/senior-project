@@ -8,7 +8,7 @@ api_key = "orSPiwlxKXVJismcPT9O3UDgfUi3g7rIvjnqBkma"
 
 query_params = {
     "api_key": api_key,
-    "query": "strawberries, raw",
+    "query": "BANANA",
     "pageSize": 1,
 }
 
