@@ -28,8 +28,13 @@ function Signup() {
                 body: JSON.stringify(data),
             });
 
-            if (!res.ok) {
+            if (res.status === 400) {
                 setSignupError("User already exists");
+                return;
+            }
+
+            if (!res.ok) {
+                setSignupError("An error occurred during signup");
                 return;
             }
 
@@ -84,5 +89,5 @@ function Signup() {
     );
 }
 
-const root = ReactDOMClient.createRoot(document.getElementById("root"));
+const root = ReactDOMClient.createRoot(document.getElementById("signup"));
 root.render(<Signup />);

@@ -1,7 +1,11 @@
+// packages/backend/server.js
+
 import express from "express";
 import sql from "./access_db.js";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import { hashPassword, comparePassword } from "./hashing.js";
+
 
 const app = express();
 const port = 8000;
@@ -9,16 +13,11 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-// Debugging for endpoints
-// app.use((req, _res, next) => {
-//   console.log("INCOMING: ", req.method, req.path);
-//   next();
-// });
-
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Welcome to the GardenGuru API!");
 });
 
+// === USER ENDPOINTS ===
 app.get("/users", async (req, res) => {
     try {
         const users = await sql`SELECT * FROM users`;
@@ -71,6 +70,143 @@ app.get("/users/profile", async (req, res) => {
     }
 });
 
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const users = await sql`
+            SELECT * FROM users
+            WHERE email = ${email} 
+        `;
+
+        if (users.length === 0) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
+        const user = users[0];
+
+        const match = await comparePassword(password, user.password);
+
+        if (!match) {
+            return res.status(401).json({ message: "Wrong password" });
+        }
+
+        const token = jwt.sign(
+            {id: user.id},
+            "your_secret_key",
+            {expiresIn: "7200s"}
+        )
+
+        res.json({token})
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+app.post("/signup", async (req, res) => {
+    const { name, email, password } = req.body;
+    
+    try {
+        const existingUsers = await sql`
+            SELECT * FROM users
+            WHERE email = ${email}
+        `;
+
+        if (existingUsers.length > 0) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        const hashedPassword = await hashPassword(password);
+
+        await sql`
+            INSERT INTO users (name, email, password)
+            VALUES (${name}, ${email}, ${hashedPassword})
+        `;
+
+        const token = jwt.sign(
+            {id: user.id},
+            "your_secret_key",
+            {expiresIn: "7200s"}
+        )
+
+        res.json({token});
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// === PLANTS ENDPOINTS ===
+app.get("/plants", async (req, res) => {
+    try {
+        const plants = await sql`
+            SELECT * FROM plants
+        `;
+
+        res.json(plants);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+app.get("/plants/:name", async (req, res) => {
+    const { name } = req.params;
+
+    try {
+        const plants = await sql`
+            SELECT * FROM plants
+            WHERE name = ${name}
+        `;
+
+        if (plants.length === 0) {
+            return res.status(404).json({ message: "Plant not found" });
+        }
+
+        res.json(plants);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+app.get("/pages/:name", async (req, res) => {
+    const { name } = req.params;
+
+    try {
+        const plants = await sql`
+            SELECT * FROM plant_pages
+            WHERE name = ${name}
+        `;
+
+        if (plants.length === 0) {
+            return res.status(404).json({ message: "Plant not found" });
+        }
+
+        res.json(plants);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// === IMAGES ENDPOINTS ===
+app.get("/images/:name", async (req, res) => {
+    const { name } = req.params;
+
+    try {
+        const plants = await sql`
+            SELECT image FROM plants
+            WHERE name = ${name}
+        `;
+
+        if (plants.length === 0) {
+            return res.status(404).json({ message: "Plant not found" });
+        }
+
+        res.json(plants[0]);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// === FAVORITES ENDPOINTS ===
 app.get("/favorites/:user_id", async (req, res) => {
     const { user_id } = req.params
 
@@ -137,87 +273,6 @@ app.post("/favorites/:data", async (req, res) => {
     }
     catch (err) {
         res.status(500).json({message: "Server error"});
-    }
-});
-
-app.get("/plants/:name", async (req, res) => {
-    const { name } = req.params;
-
-    try {
-        const plants = await sql`
-            SELECT * FROM plants
-            WHERE name = ${name}
-        `;
-
-        if (plants.length === 0) {
-            return res.status(404).json({ message: "Plant not found" });
-        }
-
-        res.json(plants);
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
-app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    try {
-        const users = await sql`
-            SELECT * FROM users
-            WHERE email = ${email} 
-            AND password = ${password}
-        `;
-
-        if (users.length === 0) {
-            return res.status(401).json({ message: "User not found" });
-        }
-
-        const user = users[0];
-
-        if (user.password !== password) {
-            return res.status(401).json({ message: "Wrong password" });
-        }
-
-        const token = jwt.sign(
-            {id: user.id},
-            "your_secret_key",
-            {expiresIn: "3600s"}
-        )
-
-        res.json({token})
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
-app.post("/signup", async (req, res) => {
-    const { name, email, password } = req.body;
-
-    try {
-        const existingUsers = await sql`
-            SELECT * FROM users
-            WHERE email = ${email}
-        `;
-
-        if (existingUsers.length > 0) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-
-        await sql`
-            INSERT INTO users (name, email, password)
-            VALUES (${name}, ${email}, ${password})
-        `;
-
-        const token = jwt.sign(
-            {id: user.id},
-            "your_secret_key",
-            {expiresIn: "3600s"}
-        )
-
-        res.json({token});
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
     }
 });
 

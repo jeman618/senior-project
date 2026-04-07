@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/styles/reset.css">
     <link rel="stylesheet" href="/styles/plant.css">
 </head>
-
+<body>
+    <div id="plant-root"></div>
+    <script type="module" src="/src/plant.jsx"></script>
 <header>
     <div class="title">
       <img class="logo" src="/images/logo.png" alt = ""/>
@@ -20,8 +22,7 @@
     </div>
     <img class="login" src="/images/user.png" alt="Login" 
     onclick="window.location.href='/src/login.html'"/>
-  </header> 
-<body>
+</header> 
 <div class="middle">
     <h1>Strawberry</h1>
     <div class="description">
@@ -56,7 +57,7 @@
         </div>
     </div>
     <script>
-    fetch("http://localhost:8000/plants/Strawberry")
+    fetch("http://localhost:8000/plants/Strawberries")
     .then(res => res.json())
     .then(data => {
         const tableBody1 = document.querySelector("#plant #top");
@@ -127,9 +128,11 @@
     <img class="info" src="/plants/strbry_picking.png" alt="Picking Strawberry"/>
     </div>
     <h2>Fun Fact</h2>
+    <div class="description">
     <p>Strawberries are not true berries! 
     They are classified as aggregate fruits because they form from multiple flowers on a single plant.
     </p>
+    </div>
 <div class="bottom">
       <h1>About Us</h1>
 </div>

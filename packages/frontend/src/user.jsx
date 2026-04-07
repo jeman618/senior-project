@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
-import { useForm } from "react-hook-form";
-import { userHeader } from "./header";
+import { UserHeader } from "./header";
 
 function isTokenValid(token) {
     try {
@@ -17,6 +16,12 @@ function isTokenValid(token) {
 function redirectToLogin() {
     localStorage.removeItem("token");
     window.location.href = "login.html";
+}
+
+function headToFavorite(favoriteId) {
+    localStorage.setItem("favoriteId", favoriteId);
+    console.log("Favorite ID set to: ", localStorage.getItem("favoriteId"));
+    window.location.href = "favorite.html";
 }
 
 async function getFavorites(user_id) {
@@ -33,6 +38,7 @@ async function getFavorites(user_id) {
 
 function User() {
     const [user, setUser] = useState(null);
+    const [password, setPassword] = useState("");
     const [favorites, setFavorites] = useState([]);
         
     useEffect(() => {
@@ -58,6 +64,8 @@ function User() {
             const user = await res.json();
             setUser(user);
 
+            setPassword("*".repeat(4));
+
             const favorites = await getFavorites(user.id);
             setFavorites(favorites || []);
         }
@@ -65,12 +73,12 @@ function User() {
     }, []);
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <>Loading...</>;
     }
 
     return (
         <>
-        < userHeader />
+        <UserHeader />
         <div className="middle">
         <h1>Account Information</h1>
         <div className="card">
@@ -84,7 +92,7 @@ function User() {
             </div>
             <div className="row">
             <h1>Password</h1>
-            <h2>{user.password}</h2>
+            <h2>{password}</h2>
             </div>
         </div>
 
@@ -93,11 +101,13 @@ function User() {
             <div className="favorites">
                 {favorites.length > 0 ? (
                     favorites.map((favorite) => (
-                        
-                        <h2 key={favorite.id} id="favorite">{favorite.name}</h2>
+                        <h2 key={favorite.id} 
+                        id="favorite" 
+                        onClick={() => headToFavorite(favorite.id)}>
+                            {favorite.name}</h2>
                     ))
                 ) : (
-                    <h2 id="favorite">No favorites yet.</h2>
+                        <h2 id="favorite">No favorites yet.</h2>
                 )}
             </div>
         </div>
@@ -111,6 +121,6 @@ function User() {
     )
 }
 
-const container = document.getElementById("root");
+const container = document.getElementById("user");
 const root = ReactDOMClient.createRoot(container);
 root.render(<User />);

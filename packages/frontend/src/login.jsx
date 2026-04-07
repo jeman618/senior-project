@@ -86,5 +86,5 @@ function Login() {
     );
 }
 
-const root = ReactDOMClient.createRoot(document.getElementById("root"));
+const root = ReactDOMClient.createRoot(document.getElementById("login"));
 root.render(<Login />);

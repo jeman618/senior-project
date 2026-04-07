@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
+import Header from "./header.jsx";
 
 function isTokenValid(token) {
     try {
@@ -18,8 +19,14 @@ function redirectToLogin() {
     window.location.href = "login.html";
 }
 
+function goToPlant(plantName) {
+    localStorage.setItem("plantName", plantName);
+    window.location.href = "/src/plant.html";
+}
+
 function Favorite() {
     const [favorite, setFavorite] = useState(null);
+    const [plants, setPlants] = useState([]);
 
     useEffect(() => {
         async function loadFavorite() {
@@ -41,40 +48,59 @@ function Favorite() {
                 return;
             }
 
-            const user = await user_res.json();
-            const res = await fetch(`http://localhost:8000/favorites/${user.id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
+            const favorite_id = localStorage.getItem("favoriteId");
+            const res = await fetch(`http://localhost:8000/favorite/${favorite_id}`)
 
             const favorite = await res.json();
-            console.log(favorite[1])
-            setFavorite(favorite[1]);
-        }
+            console.log(favorite[0]);
+            setFavorite(favorite[0]);
 
+            const plantsData = [];
+
+            // Fetches the image for each plant in the favorite list
+            for (let i = 0; i < favorite[0].plants.length; i++) {
+                const plant = favorite[0].plants[i];
+                const image_res = await fetch(`http://localhost:8000/images/${plant}`);
+                const image_data = await image_res.json();
+                plantsData.push({ [plant]: image_data.image });
+            }
+
+            setPlants(plantsData);
+        }
         loadFavorite();
+
     }, []);
 
     if (!favorite) {
-        return <div>Loading...</div>;
+        return <>Loading...</>;
     }
 
     return (
         <>
+        <Header />
+        <div className="middle">
+            
         <h1>{favorite.name}</h1>
         <div className="card">
-            <h1>{favorite.description}</h1>
+            <h2>{favorite.description}</h2>
         </div>
-        <ul>
-            {favorite.plants.map((plant, index) => (
-                <h2 key={index}>{plant}</h2>
-            ))}
-        </ul>
+        <div className="featured">
+            {plants.map((plant, index) => {
+                const plantName = Object.keys(plant)[0];
+                console.log("Rendering plant: ", plantName);
+                return (
+                        <div key={index} className="featured-img" onClick={() => goToPlant(plantName)}>
+                            <h2>{plantName}</h2>
+                            <img src={plant[plantName]} alt={plantName} />
+                        </div>
+                );
+            })}
+        </div>
+        </div>
         </>
     );
 }
 
-const container = document.getElementById("root");
+const container = document.getElementById("favorite-root");
 const root = ReactDOMClient.createRoot(container);
 root.render(<Favorite />);

@@ -2,41 +2,50 @@
 
 import React from "react";
 import ReactDOMClient from "react-dom/client";
-import Header from "./header.jsx";
+import { HomeHeader } from "./header.jsx";
+
+function goToPlant(plantName) {
+    localStorage.setItem("plantName", plantName);
+    window.location.href = "/src/plant.html";
+}
 
 function Home() {
     return (
         <>
-        <Header />
+        <HomeHeader />
         <div className="middle">
+        <div className="menu">
+            <a href="/src/plants.html"><h1>Plants</h1></a>
+            <a href="/src/recommended.html"><h1>User Recommended</h1></a>
+            <a href="/src/location.html"><h1>Plants For You</h1></a>
+        </div>
+        <hr></hr>
         <div className="promo">
             <img className="promo-img" src="/images/promo.png" alt=""/>
             <div className="promo-txt">Learn to grow your favorite plants!</div>
         </div>
         <h1 className="featured-title">Featured Plants</h1>
         <div className="featured">
-            <a href="/src/strawberry.html">
-                <div className="featured-img">
-                <h3>Strawberry</h3>
-                <img src="/plants/img_strawberry.png" alt="Strawberry" />
-                </div>
-            </a>
-            <div className="featured-img">
-            <h3>Banana</h3>
-            <img src="/plants/img_banana.png" alt="Banana"/>
+            <div className="featured-img" onClick={() => goToPlant("Strawberries")}>
+                <h3>Strawberries</h3>
+                <img src="/plants/img_strawberry.png" alt="Strawberries" />
             </div>
             <div className="featured-img">
-            <h3>Raspberry</h3>
-            <img src="/plants/img_raspberry.png" alt="Raspberry"/>
+                <h3>Banana</h3>
+                <img src="/plants/img_banana.png" alt="Banana"/>
+            </div>
+            <div className="featured-img" onClick={() => goToPlant("Raspberries")}>
+                <h3>Raspberries</h3>
+                <img src="/plants/img_raspberry.png" alt="Raspberries"/>
             </div>
             <div className="featured-img">
-            <h3>Blackberry</h3>
-            <img src="/plants/img_blackberry.png" alt="Blackberry"/>
+                <h3>Blackberries</h3>
+                <img src="/plants/img_blackberry.png" alt="Blackberries"/>
             </div>
         </div>
         <br></br>
             <div className="bottom">
-                <a href="about.html"><h1>About Us</h1></a>
+                <a href="/src/about.html"><h1>About Us</h1></a>
             </div>
         </div>
         </>

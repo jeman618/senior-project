@@ -6,6 +6,24 @@ import UserMenu from "./dropMenu.jsx";
 function Header() {
     return (
     <header>
+        <a href="index.html">
+        <div className="title">
+            <img className="logo" src="/images/logo.png" alt = ""/>
+            <h1>GardenGuru</h1>
+        </div>
+        </a>
+
+        <div className="topnav">
+            <input type="text" placeholder="Search..." />
+        </div>
+        <UserMenu />
+    </header>
+    );
+}
+
+function HomeHeader() {
+    return (
+    <header>
         <div className="title">
             <img className="logo" src="/images/logo.png" alt = ""/>
             <h1>GardenGuru</h1>
@@ -19,18 +37,18 @@ function Header() {
     );
 }
 
-function userHeader() {
+function UserHeader() {
     return (
     <header>
-    <div class="title">
-        <a href="index.html">
-        <img class="logo" src="/images/logo.png" alt = ""/>
+    <a href="index.html">
+    <div className="title">
+        <img className="logo" src="/images/logo.png" alt = ""/>
         <h1>GardenGuru</h1>
-        </a>
     </div>
+    </a>
     </header> 
     );
 }
 
 export default Header;
-export { userHeader };
+export { UserHeader, HomeHeader };

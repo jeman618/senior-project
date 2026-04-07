@@ -44,5 +44,6 @@ create table public.plants (
   vitamin_c double precision null default '0'::double precision,
   growth_time bigint null default '0'::bigint,
   locations text[] null,
+  image text null,
   constraint Plants_pkey primary key (id)
 ) TABLESPACE pg_default;
