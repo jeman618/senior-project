@@ -1,0 +1,25 @@
+/* packages/frontend/styles/recommended.css */
+
+.title_recommended {
+    margin-top: 150px;
+    color: var(--color-primary);
+    text-align: center;
+    font-size: 70px;
+}
+.middle {
+    margin-top: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.card {
+  width: 80%;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 40px;
+  background: var(--color-box);
+  text-align: center;
+  cursor: pointer;
+}

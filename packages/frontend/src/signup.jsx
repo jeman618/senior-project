@@ -60,7 +60,7 @@ function Signup() {
         <div className="page">
             <div className="card">
                 <img src="/images/logo.png" alt = ""/>
-                <h2>SIGN UP</h2>
+                <h1>SIGN UP</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     type="name"

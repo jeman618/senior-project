@@ -13,6 +13,9 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
+app.listen(port, () => 
+    console.log("App listening at http://localhost:" + port));
+
 app.get("/", (req, res) => {
     res.send("Welcome to the GardenGuru API!");
 });
@@ -27,16 +30,19 @@ app.get("/users", async (req, res) => {
     }
 });
 
-app.post("/users", async (req, res) => {
-    const { data } = req.body
+// updates user information
+app.post("/users/update", async (req, res) => {
+    const { id, name, email, password } = req.body
 
     try {
-        await sql`
+        const hashedPassword = hashPassword(password);
+
+        const data = await sql`
         UPDATE users
-        SET name = ${data.name}, email = ${data.email}, password = ${data.password}
-        WHERE id = ${data.id}
+        SET name = ${name}, email = ${email}, password = ${hashedPassword}
+        WHERE id = ${id}
         `
-        console.log("Updated user: ", data)
+        console.log("Updated user: ", name)
         res.json(data)
     }
     catch (err) {
@@ -44,6 +50,7 @@ app.post("/users", async (req, res) => {
     }
 });
 
+// gets user information only meant to be seen by same user
 app.get("/users/profile", async (req, res) => {
     const authHeader = req.headers.authorization;
 
@@ -70,6 +77,7 @@ app.get("/users/profile", async (req, res) => {
     }
 });
 
+// logs user into account
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -85,7 +93,7 @@ app.post("/login", async (req, res) => {
 
         const user = users[0];
 
-        const match = await comparePassword(password, user.password);
+        const match = comparePassword(password, user.password);
 
         if (!match) {
             return res.status(401).json({ message: "Wrong password" });
@@ -103,6 +111,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// signs up user
 app.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
     
@@ -116,7 +125,7 @@ app.post("/signup", async (req, res) => {
             return res.status(400).json({ message: "User already exists" });
         }
 
-        const hashedPassword = await hashPassword(password);
+        const hashedPassword = hashPassword(password);
 
         await sql`
             INSERT INTO users (name, email, password)
@@ -148,6 +157,7 @@ app.get("/plants", async (req, res) => {
     }
 });
 
+// gets individual plant based on name
 app.get("/plants/:name", async (req, res) => {
     const { name } = req.params;
 
@@ -167,6 +177,8 @@ app.get("/plants/:name", async (req, res) => {
     }
 });
 
+// === PLANT PAGES ENDPOINTS ===
+// gets plant information to make page
 app.get("/pages/:name", async (req, res) => {
     const { name } = req.params;
 
@@ -187,6 +199,7 @@ app.get("/pages/:name", async (req, res) => {
 });
 
 // === IMAGES ENDPOINTS ===
+// gets image associated with plant
 app.get("/images/:name", async (req, res) => {
     const { name } = req.params;
 
@@ -206,7 +219,46 @@ app.get("/images/:name", async (req, res) => {
     }
 });
 
+app.get("/pictures/:user", async (req, res) => {
+    const { user } = req.params;
+
+    try {
+        const image = await sql`
+            SELECT picture FROM user
+            WHERE id = ${user}
+        `;
+
+        if (image.length === 0) {
+            return res.status(404).json({ message: "image not found" });
+        }
+
+        res.json(image[0]);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 // === FAVORITES ENDPOINTS ===
+app.get("/favorites", async (req, res) => {
+
+    try {
+        const favorites = await sql`
+        SELECT * 
+        FROM favorites
+        `;
+
+        if (favorites.length == 0) {
+            return res.status(404).json({message : "Could not find favorites associated with user"})
+        }
+
+        res.json(favorites)
+    }
+    catch (err) {
+        res.status(500).json({message: "Server error"});
+    }
+});
+
+// gets favorites from an individual user
 app.get("/favorites/:user_id", async (req, res) => {
     const { user_id } = req.params
 
@@ -228,6 +280,7 @@ app.get("/favorites/:user_id", async (req, res) => {
     }
 });
 
+// gets individual favorite
 app.get("/favorite/:favorite_id", async (req, res) => {
     const { favorite_id } = req.params
 
@@ -248,7 +301,7 @@ app.get("/favorite/:favorite_id", async (req, res) => {
     }
 });
 
-
+// inserts new favorite (under construction)
 app.post("/favorites/:data", async (req, res) => {
     const { data } = req.params
 
@@ -275,6 +328,3 @@ app.post("/favorites/:data", async (req, res) => {
         res.status(500).json({message: "Server error"});
     }
 });
-
-app.listen(port, () => 
-    console.log("App listening at http://localhost:" + port));

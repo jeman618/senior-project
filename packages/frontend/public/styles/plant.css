@@ -1,6 +1,6 @@
 /* packages/frontend/styles/plant.css */
 
-h1 {
+.plant-title {
     font-size: 80px;
     font-weight: bold;
     margin-top: 20px;
@@ -16,12 +16,12 @@ h2 {
 }
 
 th {
-    font-size: 40px;
+    font-size: 35px;
     padding: 10px;
 }
 
 td {
-    font-size: 40px;
+    font-size: 35px;
     padding: 10px;
 }
 

@@ -13,6 +13,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
+    color: var(--color-primary)
 }
 
 .card {
@@ -40,16 +41,4 @@ h2 {
     font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
-}
-
-.row {
-  display: grid;
-  text-align: left;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 15px;
-  align-items: center;
-}
-
-.row h1 {
-  text-align: left;
 }

@@ -58,8 +58,10 @@ function Login() {
         <div className="page">
             <div className="card">
                 
+                <div>
                 <img src="/images/logo.png" alt = ""/>
-                <h2>SIGN IN</h2>
+                <h1>LOG IN</h1>
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
                         type="email"

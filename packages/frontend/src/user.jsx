@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import { UserHeader } from "./header";
+import { FavoriteMenu } from "./dropMenu";
 
 function isTokenValid(token) {
     try {
@@ -80,8 +81,14 @@ function User() {
         <>
         <UserHeader />
         <div className="middle">
+        <br></br>
         <h1>Account Information</h1>
         <div className="card">
+            <div className="row">
+            <h1>Profile</h1>
+            <img className="profile-img" src={user.image} alt="Profile"/>
+            
+            </div>
             <div className="row">
             <h1>Name</h1>
             <h2>{user.name}</h2>
@@ -94,9 +101,14 @@ function User() {
             <h1>Password</h1>
             <h2>{password}</h2>
             </div>
+            <h1 className="edit">Edit</h1>
         </div>
 
-        <h1>Favorites</h1>
+        <div className="fav_row">
+            <h1></h1>
+            <h1>Favorites</h1>
+            <FavoriteMenu />
+        </div>
         <div className="card">
             <div className="favorites">
                 {favorites.length > 0 ? (

@@ -11,7 +11,7 @@ function About() {
             <p>Our mission is to provide users with easy-to-understand guides to give them the knowledge 
                 and resources they need to succeed in their gardening endeavors.</p>
             <p>Our team of experts is passionate about gardening and technology, and we are committed to making a user-friendly platform
-                that connects users to nature and helps them grow their own plants, whether they are seasoned gardeners or just starting out.</p> 
+                that connects users to nature and helps them grow their own plants, whether they are seasoned gardeners or just starting out.</p>
             <p>Thank you for choosing GardenGuru. We hope you find our resources helpful in your gardening journey!</p>
         </div>
         </>

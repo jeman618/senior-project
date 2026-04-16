@@ -44,9 +44,9 @@ function Home() {
             </div>
         </div>
         <br></br>
-            <div className="bottom">
-                <a href="/src/about.html"><h1>About Us</h1></a>
-            </div>
+        </div>
+        <div className="bottom">
+            <a href="/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

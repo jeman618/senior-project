@@ -14,7 +14,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 420px;
+  justify-content: space-evenly;
+  width: 40%;
+  height: 60%;
+  max-width: 1000px;
+  max-height: 800px;
+  height: 1000px;
   padding: 40px;
   border-radius: 20px;
 
@@ -23,28 +28,30 @@
 }
 
 .logo {
-  font-size: 40px;
+  font-size: 100px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 img {
-  width: 100px;
-  height: auto;
+  width: 10vw;
+  height: 10vw;
 }
 
-h1 {
+.card h1 {
+  text-align: center;
   margin-bottom: 25px;
-  font-weight: 700;
+  font-size: 50px;
 }
 
 input {
-  width: 93%;
+  justify-self: start;
+  width: 96%;
   padding: 12px;
-  margin-top: 8px;
+  margin: 8px;
   border-radius: 12px;
   border: 1px solid #aaa;
-  font-size: 16px;
+  font-size: 40px;
 }
 
 .forgot {
@@ -52,18 +59,18 @@ input {
   text-align: left;
   margin-top: 8px;
   color: #2a5db0;
-  font-size: 15px;
+  font-size: 40px;
 }
 
 .loginBtn {
   margin-top: 25px;
-  width: 100%;
+  width: 99%;
   padding: 15px;
   border: none;
   border-radius: 12px;
   background: #21b80f;
   color: white;
-  font-size: 26px;
+  font-size: 40px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
@@ -76,7 +83,7 @@ input {
 .signup {
   text-align: center;
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 40px;
 }
 
 .signup a {

@@ -60,4 +60,21 @@ function UserMenu() {
     )
 };
 
+function FavoriteMenu() {
+    return (
+    <>
+    <div className="button right_button">
+    <div className="dropdown">
+        <h1 className="arrow_down">▼</h1>
+        <div className="favorites_dropdown dropdown-content">
+            <p>Add</p>
+            <p>Remove</p>
+        </div>
+    </div>
+    </div>
+    </>
+    )
+};
+
 export default UserMenu;
+export { FavoriteMenu };

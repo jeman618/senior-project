@@ -61,14 +61,14 @@ function Plant() {
     }, []);
 
     if (!plant) {
-        return <>Loading...</>;
+        return <>Oh no! Looks like we don't have this plant in our database! :(</>;
     }
 
     return (
         <>
             <Header />
             <div className="middle">
-            <h1>{plant.name}</h1>
+            <h1 className="plant-title">{plant.name}</h1>
             <div className="description">
                 <img className="photo-info" src={plant_img} alt={`${plant.name}`} />
                 <div className="table-container">
@@ -119,9 +119,9 @@ function Plant() {
             <div className="description">
                 <p>{plant.fact}</p>
             </div>
+            </div>
             <div className="bottom">
                 <a href="/src/about.html"><h1>About Us</h1></a>
-            </div>
             </div>
         </>
     );

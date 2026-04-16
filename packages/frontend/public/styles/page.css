@@ -1,6 +1,10 @@
 /* packages/frontend/styles/page.css */
 
 header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,7 +78,7 @@ hr {
     display: flex;
     justify-content: space-evenly;
     gap: 5%;
-    margin-top: 20px;
+    margin-top: 150px;
     font-size: 1rem;
 }
 
@@ -111,10 +115,13 @@ hr {
 }
 
 .middle {
+    margin-top: 150px;
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 24px;
+    flex: 1;
+    margin-bottom: 150px;
 }
 
 .middle h1 {
@@ -165,10 +172,6 @@ hr {
     border: 5px solid var(--color-primary);
 }
 
-.bottom h1 {
-    text-align: left;
-}
-
 .logo{
     width: 10%;
     height: auto;
@@ -181,10 +184,17 @@ hr {
 }
 
 .bottom {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
     background-color: var(--color-body-bottom);
     color: var(--color-bottom);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.bottom h1 {
+    text-align: left;
 }
 
 .dropdown {

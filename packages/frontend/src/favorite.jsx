@@ -89,13 +89,16 @@ function Favorite() {
                 const plantName = Object.keys(plant)[0];
                 console.log("Rendering plant: ", plantName);
                 return (
-                        <div key={index} className="featured-img" onClick={() => goToPlant(plantName)}>
-                            <h2>{plantName}</h2>
-                            <img src={plant[plantName]} alt={plantName} />
-                        </div>
+                    <div key={index} className="featured-img" onClick={() => goToPlant(plantName)}>
+                        <h2>{plantName}</h2>
+                        <img src={plant[plantName]} alt={plantName} />
+                    </div>
                 );
             })}
         </div>
+        </div>
+        <div className="bottom">
+            <a href="/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );
