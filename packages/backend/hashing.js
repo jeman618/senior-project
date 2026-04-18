@@ -1,3 +1,5 @@
+// packages/backend/hashing.js
+
 import bcrypt from "bcrypt";
 
 const saltRounds = 12;

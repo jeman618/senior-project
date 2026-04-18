@@ -9,6 +9,31 @@ function goToPlant(plantName) {
     window.location.href = "/src/plant.html";
 }
 
+function getFeatured() {
+    return (
+        <>
+        <div className="featured">
+            <div className="featured-img" onClick={() => goToPlant("Strawberries")}>
+                <h3>Strawberries</h3>
+                <img src="/plants/img_strawberry.png" alt="Strawberries" />
+            </div>
+            <div className="featured-img" onClick={() => goToPlant("Bananas")}>
+                <h3>Bananas</h3>
+                <img src="/plants/img_banana.png" alt="Banana"/>
+            </div>
+            <div className="featured-img" onClick={() => goToPlant("Raspberries")}>
+                <h3>Raspberries</h3>
+                <img src="/plants/img_raspberry.png" alt="Raspberries"/>
+            </div>
+            <div className="featured-img" onClick={() => goToPlant("Blackberries")}>
+                <h3>Blackberries</h3>
+                <img src="/plants/img_blackberry.png" alt="Blackberries"/>
+            </div>   
+        </div>
+        </>
+    );
+}
+
 function Home() {
     return (
         <>
@@ -25,24 +50,7 @@ function Home() {
             <div className="promo-txt">Learn to grow your favorite plants!</div>
         </div>
         <h1 className="featured-title">Featured Plants</h1>
-        <div className="featured">
-            <div className="featured-img" onClick={() => goToPlant("Strawberries")}>
-                <h3>Strawberries</h3>
-                <img src="/plants/img_strawberry.png" alt="Strawberries" />
-            </div>
-            <div className="featured-img">
-                <h3>Banana</h3>
-                <img src="/plants/img_banana.png" alt="Banana"/>
-            </div>
-            <div className="featured-img" onClick={() => goToPlant("Raspberries")}>
-                <h3>Raspberries</h3>
-                <img src="/plants/img_raspberry.png" alt="Raspberries"/>
-            </div>
-            <div className="featured-img">
-                <h3>Blackberries</h3>
-                <img src="/plants/img_blackberry.png" alt="Blackberries"/>
-            </div>
-        </div>
+        {getFeatured()}
         <br></br>
         </div>
         <div className="bottom">

@@ -6,6 +6,7 @@
     text-align: center;
     font-size: 70px;
 }
+
 .middle {
     margin-top: 0px;
     display: grid;
@@ -22,4 +23,8 @@
   background: var(--color-box);
   text-align: center;
   cursor: pointer;
+}
+
+.card h1 {
+    color: var(--color-favorites);
 }

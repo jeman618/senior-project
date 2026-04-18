@@ -26,6 +26,7 @@
   height: 150px;
   align-items: center;
   justify-self: center;
+  background-color: var(--color-foreground);
 }
 
 .middle h1 {

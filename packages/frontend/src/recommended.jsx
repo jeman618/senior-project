@@ -42,7 +42,7 @@ function Recommended() {
     return (
         <>
         <Header />
-        <h1 className="title_recommended">Recommended Plants</h1>
+        <h1 className="title_recommended">Recommended</h1>
         <div className="middle">
             {data.map((list, index) => {
                 const userName = Object.keys(list)[0];
@@ -50,9 +50,8 @@ function Recommended() {
                 
                 return favs.map((fav, favIndex) => (
                     <div key={`${index}-${favIndex}`} className="card" onClick ={() => goToFavorite(fav.id)}>
-                        <h2>{fav.name}</h2>
-                        <h2>{fav.description}</h2>
-                        <h2>By: {userName}</h2>
+                        <h1>{fav.name}</h1>
+                        <h2>{userName}</h2>
                     </div>
                 ));
             })}

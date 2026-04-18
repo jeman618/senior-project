@@ -19,6 +19,26 @@ function redirectToLogin() {
     window.location.href = "login.html";
 }
 
+function renderFavorites(favorites) {
+    return (
+    <>
+    <div className="card">
+        <div className="favorites">
+            {favorites.length > 0 ? (
+                favorites.map((favorite) => (
+                    <h2 key={favorite.id} 
+                    id="favorite" 
+                    onClick={() => headToFavorite(favorite.id)}>{favorite.name}</h2>
+                ))
+            ) : (
+                    <h2 id="favorite">No favorites yet.</h2>
+            )}
+        </div>
+    </div>
+    </>
+    );
+}
+
 function headToFavorite(favoriteId) {
     localStorage.setItem("favoriteId", favoriteId);
     console.log("Favorite ID set to: ", localStorage.getItem("favoriteId"));
@@ -27,13 +47,13 @@ function headToFavorite(favoriteId) {
 
 async function getFavorites(user_id) {
     try {
-        const res = await fetch(`http://localhost:8000/favorites/${user_id}`)
-        const data = await res.json()
-        return data
+        const res = await fetch(`http://localhost:8000/favorites/${user_id}`);
+        const data = await res.json();
+        return data;
     }
     catch (err) {
-        console.error("Failed to load favorites: ", err)
-        return
+        console.error("Failed to load favorites: ", err);
+        return;
     }
 }
 
@@ -86,8 +106,7 @@ function User() {
         <div className="card">
             <div className="row">
             <h1>Profile</h1>
-            <img className="profile-img" src={user.image} alt="Profile"/>
-            
+            <img className="profile-img" src={user.image} alt=""/>
             </div>
             <div className="row">
             <h1>Name</h1>
@@ -109,25 +128,13 @@ function User() {
             <h1>Favorites</h1>
             <FavoriteMenu />
         </div>
-        <div className="card">
-            <div className="favorites">
-                {favorites.length > 0 ? (
-                    favorites.map((favorite) => (
-                        <h2 key={favorite.id} 
-                        id="favorite" 
-                        onClick={() => headToFavorite(favorite.id)}>
-                            {favorite.name}</h2>
-                    ))
-                ) : (
-                        <h2 id="favorite">No favorites yet.</h2>
-                )}
-            </div>
-        </div>
+        {renderFavorites(favorites)}
 
         <h1>Add New Plant</h1>
         <div className="card">
             <h3>Add any plants you wish other users can grow! Just make sure you are an expert</h3>
         </div>
+        
         </div>  
         </>
     )

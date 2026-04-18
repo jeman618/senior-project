@@ -7,9 +7,11 @@ function About() {
         <>
         <Header />
         <div className="middle">
-            <p>GardenGuru is a web application that helps users to grow their favorite plants.</p>
-            <p>Our mission is to provide users with easy-to-understand guides to give them the knowledge 
-                and resources they need to succeed in their gardening endeavors.</p>
+            <p>GardenGuru is a web application that helps users grow their favorite plants. 
+                For anyone who wishes to grow their own food, this is the tool for you!</p>
+            <p>Our mission is to provide users with easy-to-understand guides that give them the knowledge 
+                and resources they need to succeed in their gardening endeavors.
+                Find the plant you have always wanted to grow, or even add it to our community-driven collection!</p>
             <p>Our team of experts is passionate about gardening and technology, and we are committed to making a user-friendly platform
                 that connects users to nature and helps them grow their own plants, whether they are seasoned gardeners or just starting out.</p>
             <p>Thank you for choosing GardenGuru. We hope you find our resources helpful in your gardening journey!</p>

@@ -31,9 +31,9 @@ img {
 }
 
 hr {
+    width: 100%;
     border: none;
     border-top: 10px solid var(--color-favorites);
-    margin: 20px 0;
 }
 
 .title {
@@ -42,13 +42,10 @@ hr {
 }
 
 .title a {
-    display: flex;
-    align-items: center;
     background-color: var(--color-primary);
     text-align: left;
     font-size: 1rem;
     font-weight: bold;
-    padding-right: 5px;
 }
 
 .topnav {
@@ -131,17 +128,18 @@ hr {
 
 .featured {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: stretch;
     gap: 5%;
+    align-items: stretch;
+    margin-bottom: 5%;
 }
 
 .featured-title {
     text-align: center;
     color: var(--color-primary);
-    font-size: 2rem;
-    padding-bottom: 10px;
+    font-size: 50px;
+    padding: 20px;
 }
 
 .featured-img {
@@ -152,9 +150,11 @@ hr {
     align-items: center;
     cursor: pointer;
     width: 100%;
+    min-width: 200px;
     max-width: 250px;
     height: 400px;
     padding: 10px;
+    margin: 10px;
     color: var(--color-text);
     background-color: var(--color-box);
     border: 10px solid var(--color-box);

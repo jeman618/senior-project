@@ -43,7 +43,7 @@ function Favorite() {
                 }
             })
 
-            if (user_res.status === 401) {
+            if (user_res.status === 404 || user_res.status === 401) {
                 redirectToLogin();
                 return;
             }
@@ -60,9 +60,13 @@ function Favorite() {
             // Fetches the image for each plant in the favorite list
             for (let i = 0; i < favorite[0].plants.length; i++) {
                 const plant = favorite[0].plants[i];
-                const image_res = await fetch(`http://localhost:8000/images/${plant}`);
+                const image_res = await fetch(`http://localhost:8000/plants/${plant}`);
+                if (image_res === 404) {
+                    console.error(`Failed to load image for plant ${plant}: `, image_res.statusText);
+                    continue;
+                }
                 const image_data = await image_res.json();
-                plantsData.push({ [plant]: image_data.image });
+                plantsData.push({ [plant]: image_data[0].image });
             }
 
             setPlants(plantsData);

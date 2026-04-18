@@ -200,43 +200,6 @@ app.get("/pages/:name", async (req, res) => {
 
 // === IMAGES ENDPOINTS ===
 // gets image associated with plant
-app.get("/images/:name", async (req, res) => {
-    const { name } = req.params;
-
-    try {
-        const plants = await sql`
-            SELECT image FROM plants
-            WHERE name = ${name}
-        `;
-
-        if (plants.length === 0) {
-            return res.status(404).json({ message: "Plant not found" });
-        }
-
-        res.json(plants[0]);
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
-app.get("/pictures/:user", async (req, res) => {
-    const { user } = req.params;
-
-    try {
-        const image = await sql`
-            SELECT picture FROM user
-            WHERE id = ${user}
-        `;
-
-        if (image.length === 0) {
-            return res.status(404).json({ message: "image not found" });
-        }
-
-        res.json(image[0]);
-    } catch (err) {
-        res.status(500).json({ message: "Server error" });
-    }
-});
 
 // === FAVORITES ENDPOINTS ===
 app.get("/favorites", async (req, res) => {
