@@ -1,5 +1,27 @@
 /* packages/frontend/styles/favorite.css */
 
+h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .middle {
     display: flex;
     flex-direction: column;
@@ -37,8 +59,26 @@
   cursor: pointer;
 }
 
-h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
+.loginBtn {
+  margin-top: 25px;
+  width: 99%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #21b80f;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.loginBtn:hover {
+  background: #1a970c;
+}
+
+.fav_text {
+  font-size: 40px;
+  width: 1000px;
+  max-width: 1000px;
 }

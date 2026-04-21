@@ -214,6 +214,7 @@ app.get("/favorites", async (req, res) => {
             return res.status(404).json({message : "Could not find favorites associated with user"})
         }
 
+        console.log(favorites);
         res.json(favorites)
     }
     catch (err) {
@@ -265,29 +266,65 @@ app.get("/favorite/:favorite_id", async (req, res) => {
 });
 
 // inserts new favorite (under construction)
-app.post("/favorites/:data", async (req, res) => {
-    const { data } = req.params
-
+app.post("/favorites", async (req, res) => {
+    const { name, description, selectedPlants, user_id } = req.body;
     try {
         await sql`
         INSERT INTO favorites (
-            user_id,
             name,
             description,
             plants
         )
         VALUES (
-            ${data.user_id},
-            ${data.name},
-            ${data.description},
-            ${data.plants},
+            ${name},
+            ${description},
+            ${selectedPlants}
         )
         `;
 
-        console.log("Inserted new favorite list: ", data)
-        res.json(favorites)
+        await sql`
+        INSERT INTO user_favorites_list (
+            user_id,
+            favorites_id
+        )
+        VALUES (
+            ${user_id},
+            (SELECT id FROM favorites 
+            WHERE name = ${name} 
+            AND description = ${description} 
+            AND plants = ${selectedPlants} 
+            ORDER BY id DESC 
+            LIMIT 1)
+        )
+        `;
+
+        res.json({message: "Favorite added successfully"});
     }
     catch (err) {
+        console.log(err);
+        res.status(500).json({message: "Server error"});
+    }
+});
+
+// removes a favorite list(s)
+app.delete("/favorites", async (req, res) => {
+    const { selectedToRemove, user_id } = req.body;
+    console.log(req.body);
+    try {
+        for (const id of selectedToRemove) {
+            await sql`
+            DELETE FROM favorites WHERE id = ${id}
+            `;
+
+            await sql`
+            DELETE FROM user_favorites_list WHERE user_id = ${user_id} AND favorites_id = ${id}
+            `;
+        }
+
+        res.json({message: "Favorite removed successfully"});
+    }
+    catch (err) {
+        console.log(err);
         res.status(500).json({message: "Server error"});
     }
 });

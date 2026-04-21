@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import { UserHeader } from "./header";
-import { FavoriteMenu } from "./dropMenu";
 
 function isTokenValid(token) {
     try {
@@ -17,26 +16,6 @@ function isTokenValid(token) {
 function redirectToLogin() {
     localStorage.removeItem("token");
     window.location.href = "login.html";
-}
-
-function renderFavorites(favorites) {
-    return (
-    <>
-    <div className="card">
-        <div className="favorites">
-            {favorites.length > 0 ? (
-                favorites.map((favorite) => (
-                    <h2 key={favorite.id} 
-                    id="favorite" 
-                    onClick={() => headToFavorite(favorite.id)}>{favorite.name}</h2>
-                ))
-            ) : (
-                    <h2 id="favorite">No favorites yet.</h2>
-            )}
-        </div>
-    </div>
-    </>
-    );
 }
 
 function headToFavorite(favoriteId) {
@@ -57,10 +36,116 @@ async function getFavorites(user_id) {
     }
 }
 
+async function deleteFavorites() {
+
+}
+
+function goAddFav() {
+    window.location.href = "addfav.html";
+}
+
 function User() {
+
     const [user, setUser] = useState(null);
     const [password, setPassword] = useState("");
     const [favorites, setFavorites] = useState([]);
+
+    const [isRemoving, setIsRemoving] = useState(false);
+    const [selectedToRemove, setSelectedToRemove] = useState([]);
+
+    function handleRemoveClick() {
+        setIsRemoving(true);
+        setSelectedToRemove([]);
+    }
+
+    function handleCancelRemove() {
+        setIsRemoving(false);
+        setSelectedToRemove([]);
+    }
+
+    // will add or remove favorites in the selectedToRemove list
+    function handleCheckboxChange(favoriteId) {
+        setSelectedToRemove((prev) =>
+        prev.includes(favoriteId)
+            ? prev.filter((id) => id !== favoriteId)
+            : [...prev, favoriteId]
+        );
+    }
+
+    async function handleConfirmRemove() {
+        console.log("Removing these favorites: ", selectedToRemove);
+
+        const user_id = user.id;
+
+        const res = await fetch("http://localhost:8000/favorites", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({selectedToRemove, user_id}),
+        });
+
+        if (res.status == 200) {
+            window.location.href = "user.html";
+        }
+
+        setIsRemoving(false);
+        setSelectedToRemove([]);
+    }
+
+    function FavoriteMenu() {
+        return (
+        <>
+        <div className="button right_button">
+        <div className="dropdown">
+            <h1 className="arrow_down">▼</h1>
+            {!isRemoving ? (
+            <div className="favorites_dropdown dropdown-content">
+                <p onClick = {() => goAddFav()}>Add</p>
+                <p onClick = {() => handleRemoveClick()}>Remove</p>
+            </div>
+            ) : 
+            (
+            <div className="favorites_dropdown dropdown-content">
+                <p onClick = {() => handleConfirmRemove()}>Confirm</p>
+                <p onClick = {() => handleCancelRemove()}>Cancel</p>
+            </div>
+            )}
+        </div>
+        </div>
+        </>
+    );
+    };
+
+    function renderFavorites(favorites) {
+        return (
+        <>
+        <div className="card">
+            <div className="favorites">
+                {favorites.length > 0 ? (
+                    favorites.map((favorite) => (
+                    <div key={favorite.id} className="checkbox_row">
+                        {isRemoving && (
+                        <input
+                        type="checkbox"
+                        className = "fav_checkbox"
+                        checked={selectedToRemove.includes(favorite.id)}
+                        onChange={() => handleCheckboxChange(favorite.id)}
+                        />
+                        )}
+                        <h2
+                        id="favorite" 
+                        onClick={() => headToFavorite(favorite.id)}>{favorite.name}</h2>
+                    </div> 
+                    ))
+                ) : (
+                    <h2 id="favorite">No favorites yet.</h2>
+                )}
+            </div>
+        </div>
+        </>
+        );
+    }
         
     useEffect(() => {
         async function loadProfile() {

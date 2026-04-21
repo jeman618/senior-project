@@ -1,6 +1,6 @@
 // packages/frontend/src/main.jsx
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";
 import { HomeHeader } from "./header.jsx";
 
@@ -9,32 +9,38 @@ function goToPlant(plantName) {
     window.location.href = "/src/plant.html";
 }
 
-function getFeatured() {
+function getFeatured(plants) {
     return (
         <>
         <div className="featured">
-            <div className="featured-img" onClick={() => goToPlant("Strawberries")}>
-                <h3>Strawberries</h3>
-                <img src="/plants/img_strawberry.png" alt="Strawberries" />
-            </div>
-            <div className="featured-img" onClick={() => goToPlant("Bananas")}>
-                <h3>Bananas</h3>
-                <img src="/plants/img_banana.png" alt="Banana"/>
-            </div>
-            <div className="featured-img" onClick={() => goToPlant("Raspberries")}>
-                <h3>Raspberries</h3>
-                <img src="/plants/img_raspberry.png" alt="Raspberries"/>
-            </div>
-            <div className="featured-img" onClick={() => goToPlant("Blackberries")}>
-                <h3>Blackberries</h3>
-                <img src="/plants/img_blackberry.png" alt="Blackberries"/>
-            </div>   
+            {plants.map((plant) => (
+                <div key={plant.id} className="featured-img" onClick={() =>goToPlant(plant.name)}>
+                    <h3>{plant.name}</h3>
+                    <img src={plant.image} alt={plant.name}  />
+                </div>   
+            )).slice(0, 4)}
         </div>
         </>
     );
 }
 
 function Home() {
+    const [plant, setPlant] = useState([]);
+    
+        useEffect(() => {
+            async function getPlants() {
+            try {
+                const res = await fetch("http://localhost:8000/plants");
+                const plants = await res.json();
+
+                setPlant(plants);
+            }
+            catch (err) {
+                console.error("Failed to load plants: ", err);
+            }
+        }
+        getPlants();
+        }, []);
     return (
         <>
         <HomeHeader />
@@ -50,7 +56,7 @@ function Home() {
             <div className="promo-txt">Learn to grow your favorite plants!</div>
         </div>
         <h1 className="featured-title">Featured Plants</h1>
-        {getFeatured()}
+        {getFeatured(plant)}
         <br></br>
         </div>
         <div className="bottom">
