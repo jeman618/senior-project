@@ -45,7 +45,7 @@ function UserMenu() {
         <div className="dropdown-content">
         {!isLoggedIn ? (
             <>
-            <a href="/src/login.html"><p>Sign In</p></a>
+            <a href="/src/login.html"><p>Log In</p></a>
             <a href="/src/signup.html"><p>Sign Up</p></a>
             </>
         ) : (

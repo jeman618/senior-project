@@ -1,7 +1,11 @@
 /* packages/frontend/styles/login.css */
+
 .page {
   height: 100vh;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-image: url("/images/signin_background.png");
   background-size: cover;
   background-position: center;
@@ -18,7 +22,7 @@
   width: 40%;
   height: 60%;
   max-width: 1000px;
-  max-height: 800px;
+  max-height: 850px;
   height: 1000px;
   padding: 40px;
   border-radius: 20px;
@@ -57,27 +61,61 @@ input {
 .forgot {
   display: block;
   text-align: left;
-  margin-top: 8px;
   color: #2a5db0;
+  margin-left: 8px;
   font-size: 40px;
+}
+
+.forgot:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.pw_checkbox {
+  width: 40px;
+  height: 40px;
+}
+
+.pw {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 40px;
+}
+
+.pw p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.showPw {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-self: end;
+  font-size: 40px;
+}
+
+.showPw p {
+  margin: 0px;
 }
 
 .loginBtn {
-  margin-top: 25px;
-  width: 99%;
+  width: 100%;
+  max-width: 956px;
   padding: 15px;
   border: none;
   border-radius: 12px;
-  background: #21b80f;
-  color: white;
+  background: var(--color-button);
+  color: var(--color-foreground);
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .loginBtn:hover {
-  background: #1a970c;
+  background: var(--color-button-hover);
 }
 
 .signup {
@@ -86,6 +124,18 @@ input {
   font-size: 40px;
 }
 
-.signup a {
+.signup span {
   color: #2a5db0;
+}
+
+.signup span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error {
+  color: var(--color-error);
+  margin: 0px;
+  margin-left: 8px;
+  font-size: 40px;
 }

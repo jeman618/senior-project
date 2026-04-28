@@ -30,7 +30,7 @@ function Home() {
         useEffect(() => {
             async function getPlants() {
             try {
-                const res = await fetch("http://localhost:8000/plants");
+                const res = await fetch("/api/plants");
                 const plants = await res.json();
 
                 setPlant(plants);

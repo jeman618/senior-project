@@ -12,9 +12,9 @@ async function comparePassword(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
 }
 
-// hashPassword("test").then(hash => {
+// hashPassword("password").then(hash => {
 //     console.log("Hashed password: ", hash);
-//     comparePassword("test", hash).then(result => {
+//     comparePassword("password", hash).then(result => {
 //         console.log("Password match: ", result);
 //     });
 // });

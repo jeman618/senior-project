@@ -17,6 +17,10 @@ function redirectToLogin() {
     window.location.href = "login.html";
 }
 
+function goBack() {
+    window.location.href = "user.html"
+}
+
 function AddFav() {
     const {
             register,
@@ -56,7 +60,7 @@ function AddFav() {
 
     async function getPlants() {
             try {
-                const res = await fetch("http://localhost:8000/plants");
+                const res = await fetch("/api/plants");
                 const plants = await res.json();
 
                 setPlants(plants);
@@ -95,7 +99,7 @@ function AddFav() {
                 return;
             }
 
-            const user_res = await fetch("http://localhost:8000/users/profile", {
+            const user_res = await fetch("/api/users/profile", {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -110,7 +114,7 @@ function AddFav() {
                 selectedPlants: names
             };
 
-            const res = await fetch("http://localhost:8000/favorites", {
+            const res = await fetch("/api/favorites", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -125,7 +129,7 @@ function AddFav() {
             }
 
             if (res.status === 200) {
-                window.location.href = "user.html";
+                goBack();
             }
         }
         catch (err) {
@@ -164,22 +168,24 @@ function AddFav() {
                 </textarea>
                 {errors.description && <span style={{ color: "red" }}>{errors.name.message}</span>}
 
-                <h1 style={{ color: "black" }}>Select Plants</h1>
+                <h1 style={{ color: "black" }}>Select Plants</h1><PlantMenu />
                 <div className="featured">
                     {selectedPlants.map((plant, index) => (
-                    <div key={index} className="featured-img">
+                    <>
+                    <h2>X</h2>
+                    <div key={index} className="featured-img" style={{cursor: "default"}}>
                         <h3>{plant.name}</h3>
                         <img src={plant.image} alt={plant.name} />
                     </div>
+                    </>
                 ))}
                 </div>
-                <PlantMenu />
                 
                 {favError && <span style={{ color: "red" }}>{favError}</span>}
                 
-                <input type="submit" className="loginBtn" value="Add" />
+                <input type="submit" className="fav_button" value="Add" />
             </form>
-            <a href="/src/user.html"><button className="fav-btn">Cancel</button></a>
+            <input type="submit" className="fav_button" onClick={() => goBack()} value="Cancel" />
         </div>
         </>
     );

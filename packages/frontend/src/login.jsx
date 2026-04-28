@@ -15,11 +15,12 @@ function Login() {
     const [loginError, setLoginError] = useState();
     const emailValue = watch("email");
     const passwordValue = watch("password");
+    const [showPw, setShowPw] = useState(false);
     
     const onSubmit = async (data) => {
         setLoginError("");
         try {
-            const res = await fetch("http://localhost:8000/login", {
+            const res = await fetch("/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,16 +71,33 @@ function Login() {
                     />
 
                     <input
-                        type="password"
+                        type={showPw ? "text" : "password"}
                         {...register("password", { required: true })}
                         placeholder="Password"
                     />
-                    <br></br>
-                    {loginError && <span style={{ color: "red" }}>{loginError}</span>}
+
+                    <div className="pw">
+                        <div className="forgot" onClick={() => window.location.href="forgot_pwd.html"}>
+                        Forgot Password?
+                        </div>
+                        
+                        <div className="showPw">
+                        <input 
+                            className="pw_checkbox"
+                            type="checkbox"
+                            checked={showPw}
+                            onChange={() => setShowPw(prev => !prev)}
+                        />
+                        <p>Show Password</p>
+                        </div>
+                        
+                    </div>
+                    {loginError && <span className="error">{loginError}</span>}
 
                     <input type="submit" className="loginBtn" value="Login" />
                     <p className="signup">
-                        Don't have an account? <a href="signup.html">Sign Up</a>
+                        Don't have an account? <span onClick={()=> window.location.href="signup.html"}>
+                            Sign Up</span>
                     </p>
                 </form>
             </div>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
+import { useForm } from "react-hook-form";
 import { UserHeader } from "./header";
 
 function isTokenValid(token) {
@@ -26,7 +27,7 @@ function headToFavorite(favoriteId) {
 
 async function getFavorites(user_id) {
     try {
-        const res = await fetch(`http://localhost:8000/favorites/${user_id}`);
+        const res = await fetch(`/api/favorites/${user_id}`);
         const data = await res.json();
         return data;
     }
@@ -36,22 +37,150 @@ async function getFavorites(user_id) {
     }
 }
 
-async function deleteFavorites() {
-
-}
-
 function goAddFav() {
     window.location.href = "addfav.html";
 }
 
+function AccountInfo({
+    editMode,
+    hasProfile,
+    user,
+    password,
+    register,
+    handleEdit,
+    handleCancelEdit,
+    handleConfirmEdit,
+    handleSubmit,
+    onSubmit
+}) {
+    return (
+        <>
+        {!editMode ? (
+        <>
+        <div className="row">
+        <h1>Profile</h1>
+            <img className="profile-img" src={
+                hasProfile ? (user.image) : ("/images/logo.png")
+                } alt=""/>
+        </div>
+        <div className="row">
+            <h1>Name</h1>
+            <h2>{user.name}</h2>
+        </div>
+        <div className="row">
+            <h1>Email</h1>
+            <h2>{user.email}</h2>
+        </div>
+        <div className="row">
+            <h1>Password</h1>
+            <h2>{password}</h2>
+        </div>
+        <h1 className="edit" onClick={() => handleEdit()}>Edit</h1>
+        </>
+        ) : (
+            <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="row">
+            <h1>Profile</h1>
+            <img className="profile-img" src={
+                hasProfile ? (user.image) : ("/images/logo.png")
+                } alt=""/>
+            </div>
+            <div className="row">
+                <h1>Name</h1>
+                <input 
+                type="text"
+                className="user_input"
+                {...register("name", { required: true })}
+                placeholder="Enter name..." 
+                />
+            </div>
+            <div className="row">
+                <h1>Email</h1>
+                <input 
+                type="text"
+                className="user_input"
+                {...register("email", { required: true })}
+                placeholder="Enter email..." 
+                />
+            </div>
+            <div className="row">
+                <h1>Password</h1>
+                <input 
+                type="text"
+                className="user_input"
+                {...register("password", { required: true })}
+                placeholder="Enter password..." 
+                />
+            </div>
+            <div className="row">
+                <button className="edit" type="submit">Confirm</button>
+                <button className="edit" onClick={() => handleCancelEdit()}>Cancel</button>
+            </div>
+            </form>
+        )}
+        </>
+    );
+}
+
 function User() {
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors },
+    } = useForm();
 
     const [user, setUser] = useState(null);
     const [password, setPassword] = useState("");
     const [favorites, setFavorites] = useState([]);
 
+    const [editMode, setEditMode] = useState(false);
+    const newName = useState("");
+    const newEmail = useState("");
+    const newPwd = useState("");
+
+    const [hasProfile, setHasProfile] = useState(false);
+
     const [isRemoving, setIsRemoving] = useState(false);
     const [selectedToRemove, setSelectedToRemove] = useState([]);
+
+    function handleEdit() {
+        setValue("name", user.name);
+        setValue("email", user.email);
+        setValue("password");
+        setEditMode(true);
+    }
+
+    function handleCancelEdit() {
+        setEditMode(false);
+    }
+
+    function handleConfirmEdit() {
+        setValue(newName, {...register("name")})
+        console.log(newName)
+        setEditMode(false);
+    }
+
+    const onSubmit = async (data) => {
+
+        const res = await fetch("/api/update", {
+            method: "POST",
+            headers: {
+                    "Content-Type": "application/json",
+                },
+            body: JSON.stringify({...data, id: user.id})
+        })
+
+        setEditMode(false);
+
+        if (!res.ok) {
+            console.log("Could not update data");
+            return;
+        }
+
+    };
 
     function handleRemoveClick() {
         setIsRemoving(true);
@@ -75,9 +204,14 @@ function User() {
     async function handleConfirmRemove() {
         console.log("Removing these favorites: ", selectedToRemove);
 
+        if (selectedToRemove.length == 0) {
+            handleCancelRemove()
+            return;
+        }
+
         const user_id = user.id;
 
-        const res = await fetch("http://localhost:8000/favorites", {
+        const res = await fetch("/api/favorites", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -149,6 +283,7 @@ function User() {
         
     useEffect(() => {
         async function loadProfile() {
+        
             const token = localStorage.getItem("token");
             
             if (!token || !isTokenValid(token)) {
@@ -156,19 +291,26 @@ function User() {
                 return;
             }
 
-            const res = await fetch("http://localhost:8000/users/profile", {
+            const res = await fetch("/api/profile", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
             })
 
-            if (res.status === 401) {
+            if (res.status == 401) {
                 redirectToLogin();
                 return;
             }
 
             const user = await res.json();
             setUser(user);
+
+            if (user.image) {
+                setHasProfile(true);
+            }
+            else {
+                setHasProfile(false);
+            }
 
             setPassword("*".repeat(4));
 
@@ -189,23 +331,18 @@ function User() {
         <br></br>
         <h1>Account Information</h1>
         <div className="card">
-            <div className="row">
-            <h1>Profile</h1>
-            <img className="profile-img" src={user.image} alt=""/>
-            </div>
-            <div className="row">
-            <h1>Name</h1>
-            <h2>{user.name}</h2>
-            </div>
-            <div className="row">
-            <h1>Email</h1>
-            <h2>{user.email}</h2>
-            </div>
-            <div className="row">
-            <h1>Password</h1>
-            <h2>{password}</h2>
-            </div>
-            <h1 className="edit">Edit</h1>
+            <AccountInfo 
+                editMode={editMode}
+                hasProfile={hasProfile}
+                user={user}
+                password={password}
+                register={register}
+                handleEdit={handleEdit}
+                handleCancelEdit={handleCancelEdit}
+                handleConfirmEdit={handleConfirmEdit}
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                />
         </div>
 
         <div className="fav_row">

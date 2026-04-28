@@ -20,7 +20,7 @@ function Signup() {
     const onSubmit = async (data) => {
         setSignupError("");
         try {
-            const res = await fetch("http://localhost:8000/signup", {
+            const res = await fetch("/api/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -32,13 +32,11 @@ function Signup() {
                 setSignupError("User already exists");
                 return;
             }
-
-            if (!res.ok) {
+            else if (!res.ok) {
                 setSignupError("An error occurred during signup");
                 return;
             }
-
-            if (res.status === 200) {  
+            else {  
                 window.location.href = "index.html";
             }
             
@@ -78,7 +76,7 @@ function Signup() {
                     {...register("password", { required: true })}
                     placeholder="Password"
                 />
-                {signupError && <span style={{ color: "red" }}>{signupError}</span>}
+                {signupError && <span className="error">{signupError}</span>}
 
                 <input type="submit" className="loginBtn" value="Sign Up" />
                 </form>

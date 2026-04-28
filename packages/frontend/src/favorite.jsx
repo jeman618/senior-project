@@ -37,7 +37,7 @@ function Favorite() {
                 return;
             }
 
-            const user_res = await fetch("http://localhost:8000/users/profile", {
+            const user_res = await fetch("/api/users/profile", {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }
@@ -49,7 +49,7 @@ function Favorite() {
             }
 
             const favorite_id = localStorage.getItem("favoriteId");
-            const res = await fetch(`http://localhost:8000/favorite/${favorite_id}`)
+            const res = await fetch(`/api/favorite/${favorite_id}`)
 
             const favorite = await res.json();
             console.log(favorite[0]);
@@ -60,7 +60,7 @@ function Favorite() {
             // Fetches the image for each plant in the favorite list
             for (let i = 0; i < favorite[0].plants.length; i++) {
                 const plant = favorite[0].plants[i];
-                const image_res = await fetch(`http://localhost:8000/plants/${plant}`);
+                const image_res = await fetch(`/api/plants/${plant}`);
                 if (image_res === 404) {
                     console.error(`Failed to load image for plant ${plant}: `, image_res.statusText);
                     continue;

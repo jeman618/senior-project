@@ -14,5 +14,8 @@
     --color-user-info: #D9D5C8;
     --color-favorites: #c8aa00;
     --color-edit:  #0D4692;
+    --color-button: #21b80f;
+    --color-button-hover: #1a970c;
+    --color-error: red;
     --page-grid:3;
 }

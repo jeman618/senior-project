@@ -12,25 +12,36 @@ function goToFavorite(favoriteId) {
 
 function Recommended() {
     const [data, setData] = useState([]);
+    const [imgs, setImgs] = useState();
+
+    async function getImg(userId) {
+        try {
+            const user = await fetch(`/api/users/${userId}`);
+            const user_data = await user.json();
+            return user_data.img;
+        }
+        catch(err) {
+
+        }
+    }
 
     useEffect(() => {
         async function getFavorites() {
             try {
 
-                const users = await fetch("http://localhost:8000/users");
+                const users = await fetch("/api/users");
                 const user_data = await users.json();
-                console.log("Users: ", user_data);
 
                 const input = [];
                 for (let i = 0; i < user_data.length; i++) {
-                    const users_favs = await fetch(`http://localhost:8000/favorites/${user_data[i].id}`);
+                    const users_favs = await fetch(`/api/favorites/${user_data[i].id}`);
                     if (users_favs.status == 404) {
                         continue;
                     }
                     const users_favs_data = await users_favs.json();
                     input.push({[user_data[i].name] : users_favs_data});
                 }
-                console.log("Data: ", input);
+                
                 setData(input);
             }
             catch (err) {
@@ -52,6 +63,7 @@ function Recommended() {
                     <div key={`${index}-${favIndex}`} className="card" onClick ={() => goToFavorite(fav.id)}>
                         <h1>{fav.name}</h1>
                         <h2>{userName}</h2>
+                        {/* <img src="/images/logo.png" alt="H"/> */}
                     </div>
                 ));
             })}

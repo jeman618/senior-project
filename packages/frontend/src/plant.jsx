@@ -51,7 +51,7 @@ function Plant() {
             // Fetches plant information based on what plant the user clicked
             const plant = localStorage.getItem("plantName");
             console.log("Rendering plant: ", plant);
-            const res = await fetch(`http://localhost:8000/pages/${plant}`);
+            const res = await fetch(`/api/pages/${plant}`);
 
             if (res.status === 404) {
                 console.error("Plant not found: ", plant);
@@ -63,7 +63,7 @@ function Plant() {
             setPlant(data[0]);
             
             // Fetches nutritional information and image of the plant
-            const dataRes = await fetch(`http://localhost:8000/plants/${plant}`);
+            const dataRes = await fetch(`/api/plants/${plant}`);
             const dataPlant = await dataRes.json();
             setPlantImg(dataPlant[0].image);
 

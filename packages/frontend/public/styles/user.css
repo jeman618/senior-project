@@ -35,8 +35,12 @@
 
 .edit {
   color: var(--color-edit);
+  font-size: 2em;
+  font-weight: bold;
+  background-color: transparent;
   text-decoration: underline;
   cursor: pointer;
+  border: none;
 }
 
 .row {
@@ -55,6 +59,15 @@
   background-color: var( --color-user-info);
   padding: 10px;
   border-radius: 20px;
+}
+
+.user_input {
+  font-size: 2rem;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 30px;
 }
 
 .fav_row {
