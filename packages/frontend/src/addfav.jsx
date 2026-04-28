@@ -49,14 +49,10 @@ function AddFav() {
         setValue("selectedPlants", updatedPlants, { shouldValidate: true });
     };
 
-    function removePlantFromList(plant) {
-        if (!selectedPlants) {
-            return "";
-        }
-        const plantsArray = selectedPlants.split(",").map(p => p.trim());
-        const updatedPlants = plantsArray.filter(p => p !== plant);
-        return updatedPlants.join(", ");
-    }
+    const removePlantFromList = (plant) => {
+        const updatedPlants = selectedPlants.splice(plant, 1);
+        setValue("selectedPlants", updatedPlants, { shouldValidate: true });
+    };
 
     async function getPlants() {
             try {
@@ -73,10 +69,10 @@ function AddFav() {
     function PlantMenu() {
         return (
         <>
-        <div className="button">
+        <div className="right_button">
         <div className="dropdown">
             <h1>▼</h1>
-            <div className="dropdown-content">
+            <div className="addfav_content dropdown-content">
                 {plants.map((plant) => (
                 <p key={plant.id} onClick={() => addPlantToList(plant)}>
                     {plant.name}
@@ -168,15 +164,19 @@ function AddFav() {
                 </textarea>
                 {errors.description && <span style={{ color: "red" }}>{errors.name.message}</span>}
 
-                <h1 style={{ color: "black" }}>Select Plants</h1><PlantMenu />
+                <div className="fav_row">
+                    <h1></h1>
+                    <h1 style={{ color: "black" }}>Select Plants</h1>
+                    <PlantMenu />
+                </div>
                 <div className="featured">
                     {selectedPlants.map((plant, index) => (
                     <>
-                    <h2>X</h2>
                     <div key={index} className="featured-img" style={{cursor: "default"}}>
                         <h3>{plant.name}</h3>
                         <img src={plant.image} alt={plant.name} />
                     </div>
+                    <h2 className="cancel_addfav" onClick={() => removePlantFromList(index)}>X</h2>
                     </>
                 ))}
                 </div>

@@ -63,7 +63,7 @@ function Recommended() {
                     <div key={`${index}-${favIndex}`} className="card" onClick ={() => goToFavorite(fav.id)}>
                         <h1>{fav.name}</h1>
                         <h2>{userName}</h2>
-                        {/* <img src="/images/logo.png" alt="H"/> */}
+                        {/* <img src={} alt="H"/> */}
                     </div>
                 ));
             })}

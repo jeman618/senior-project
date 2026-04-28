@@ -4,7 +4,7 @@ import sql from './access_db.js';
 import { exec } from 'child_process';
 
 async function getPlant() {
-  exec("python3 plant_api.py ", async (error, stdout, stderr) => {
+  exec("python3 plant_api.py", async (error, stdout, stderr) => {
     if (error) {
       console.error(`Error starting API server: ${error}`);
       return;
@@ -66,6 +66,12 @@ async function setPlant() {
       ${nutrients["Magnesium, Mg"] ?? 0},
       ${nutrients["Vitamin C, total ascorbic acid"] ?? 0}
     )`;
+
+    await sql`
+    INSERT INTO plant_pages (
+      name)
+    VALUES (
+    ${data.name})`
     console.log("Inserted plant:", data.name)
   });
 }

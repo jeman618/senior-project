@@ -41,6 +41,7 @@ function goAddFav() {
     window.location.href = "addfav.html";
 }
 
+// Handles whether user is in edit mode or not
 function AccountInfo({
     editMode,
     hasProfile,
@@ -49,7 +50,6 @@ function AccountInfo({
     register,
     handleEdit,
     handleCancelEdit,
-    handleConfirmEdit,
     handleSubmit,
     onSubmit
 }) {
@@ -137,9 +137,6 @@ function User() {
     const [favorites, setFavorites] = useState([]);
 
     const [editMode, setEditMode] = useState(false);
-    const newName = useState("");
-    const newEmail = useState("");
-    const newPwd = useState("");
 
     const [hasProfile, setHasProfile] = useState(false);
 
@@ -154,12 +151,6 @@ function User() {
     }
 
     function handleCancelEdit() {
-        setEditMode(false);
-    }
-
-    function handleConfirmEdit() {
-        setValue(newName, {...register("name")})
-        console.log(newName)
         setEditMode(false);
     }
 
@@ -179,7 +170,7 @@ function User() {
             console.log("Could not update data");
             return;
         }
-
+        window.location.href = "user.html"
     };
 
     function handleRemoveClick() {
@@ -339,7 +330,6 @@ function User() {
                 register={register}
                 handleEdit={handleEdit}
                 handleCancelEdit={handleCancelEdit}
-                handleConfirmEdit={handleConfirmEdit}
                 handleSubmit={handleSubmit}
                 onSubmit={onSubmit}
                 />
