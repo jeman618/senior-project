@@ -50,6 +50,11 @@ td {
     font-size: 40px;
 }
 
+.description img {
+    min-width: 800px;
+    max-height: 900px;
+}
+
 .table-container {
     align-items: center;
     text-align: center;

@@ -1,5 +1,6 @@
 // packages/backend/add_to_db.js
 // Used to add plant's nutritional data to database
+import { exit } from 'process';
 import sql from './access_db.js';
 import { exec } from 'child_process';
 
@@ -72,7 +73,8 @@ async function setPlant() {
       name)
     VALUES (
     ${data.name})`
-    console.log("Inserted plant:", data.name)
+    console.log("Inserted plant:", data.name);
+    exit(0);
   });
 }
 

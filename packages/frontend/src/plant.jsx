@@ -100,7 +100,7 @@ function Plant() {
     }, []);
 
     if (!plant) {
-        return <>Oh no! Looks like we don't have this plant in our database! :(</>;
+        return <>Loading..</>; 
     }
 
     return (

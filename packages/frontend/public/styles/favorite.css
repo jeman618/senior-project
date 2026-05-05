@@ -38,6 +38,11 @@ textarea {
     color: var(--color-primary)
 }
 
+.middle form {
+  width: 100%;
+  max-width: 1024px;
+}
+
 .card {
   align-items: center;
   width: 90%;

@@ -95,7 +95,7 @@ function AddFav() {
                 return;
             }
 
-            const user_res = await fetch("/api/users/profile", {
+            const user_res = await fetch("/api/profile", {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

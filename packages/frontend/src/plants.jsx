@@ -1,14 +1,41 @@
 import React , { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
-import Header from "./header.jsx";
+import UserMenu from "./dropMenu.jsx";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
     window.location.href = "/src/plant.html";
 }
 
+function SearchHeader({ search, setSearch }) {
+    return (
+    <header>
+        <a href="index.html">
+        <div className="title">
+            <img className="logo" src="/images/logo.png" alt = ""/>
+            <h1>GardenGuru</h1>
+        </div>
+        </a>
+        <div className="topnav">
+            <input 
+                type="text" 
+                placeholder="Search..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
+        </div>
+        <UserMenu />
+    </header>
+    );
+}
+
 function Plants() {
     const [plants, setPlants] = useState([]);
+
+    const [search, SetSearch] = useState("");
+    const filteredPlants = plants.filter((plant) =>
+        plant.name.toLowerCase().includes(search.toLowerCase())
+    );
     
     useEffect(() => {
         async function getPlants() {
@@ -17,7 +44,6 @@ function Plants() {
                 const plants = await res.json();
 
                 setPlants(plants);
-                console.log(plants);
             }
             catch (err) {
                 console.error("Failed to load plants: ", err);
@@ -28,10 +54,10 @@ function Plants() {
 
     return (
         <>
-        <Header />
+        <SearchHeader search={search} setSearch={SetSearch}/>
         <div className="middle">
         <div className="featured">
-            {plants.map((plant) => (
+            {filteredPlants.map((plant) => (
                 <div key={plant.id} className="featured-img" onClick={() =>goToPlant(plant.name)}>
                     <h3>{plant.name}</h3>
                     <img src={plant.image} alt={plant.name}  />

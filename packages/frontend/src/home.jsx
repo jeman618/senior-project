@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";
-import { HomeHeader } from "./header.jsx";
+import Header from "./header.jsx";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
@@ -43,10 +43,10 @@ function Home() {
         }, []);
     return (
         <>
-        <HomeHeader />
+        <Header />
         <div className="middle">
         <div className="menu">
-            <a href="/src/plants.html"><h1>Plants</h1></a>
+            <a href="/src/plants.html"><h1>All Plants</h1></a>
             <a href="/src/recommended.html"><h1>User Recommended</h1></a>
             <a href="/src/location.html"><h1>Plants For You</h1></a>
         </div>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import { useForm } from "react-hook-form";
 import { UserHeader } from "./header";
+import Logout from "./logout"
 
 function isTokenValid(token) {
     try {
@@ -347,7 +348,12 @@ function User() {
             <h3>Add any plants you wish other users can grow! Just make sure you are an expert</h3>
         </div>
         
-        </div>  
+        <div>
+        <h2 className="user_button" onClick={() => Logout()}>Log Out</h2>
+        <h2 className="user_button">Delete Account</h2>
+        </div>
+        
+        </div>
         </>
     )
 }
