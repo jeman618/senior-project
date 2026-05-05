@@ -6,4 +6,8 @@ The user can also sign in to be able to favorite certain plants so that they do 
 
 The reasoning behind this idea is that I have spent considerable time in the agriculture sector, and I figured I can mold that with my CS knowledge.
 
-# [senior_proj.zip](https://github.com/user-attachments/files/26131001/senior_proj.zip)
+# Plan:
+[plan.pdf](https://github.com/user-attachments/files/27413875/plan.pdf)
+
+# Design:
+[design.pdf](https://github.com/user-attachments/files/27413889/design.pdf)
