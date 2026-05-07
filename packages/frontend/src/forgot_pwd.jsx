@@ -1,3 +1,5 @@
+// packages/frontend/src/forgot_pwd.jsx
+
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import { useForm } from "react-hook-form";

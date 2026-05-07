@@ -1,3 +1,5 @@
+# packages/backend/zone_api.py
+
 import requests
 
 zip_code = "93420"
@@ -9,5 +11,7 @@ headers = {
 }
 
 response = requests.get(url, headers=headers)
+data = response.json()
 
-print(response.json())
+print(data["zipcode"])
+print(data["hardiness_zone"])

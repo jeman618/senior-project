@@ -21,7 +21,7 @@ function Recommended() {
             return user_data.img;
         }
         catch(err) {
-
+            console.log(err);
         }
     }
 

@@ -1,4 +1,5 @@
 // packages/backend/add_to_db.js
+
 // Used to add plant's nutritional data to database
 import { exit } from 'process';
 import sql from './access_db.js';

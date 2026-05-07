@@ -1,3 +1,5 @@
+// packages/frontend/src/plant.jsx
+
 import React , { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import UserMenu from "./dropMenu.jsx";
@@ -17,7 +19,7 @@ function SearchHeader({ search, setSearch }) {
         </div>
         </a>
         <div className="topnav">
-            <input 
+            <input
                 type="text" 
                 placeholder="Search..." 
                 value={search}

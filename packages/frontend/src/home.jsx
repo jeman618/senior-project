@@ -1,4 +1,4 @@
-// packages/frontend/src/main.jsx
+// packages/frontend/src/home.jsx
 
 import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";

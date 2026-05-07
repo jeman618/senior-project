@@ -1,13 +1,99 @@
+// packages/frontend/src/location.jsx
+
 import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import Header from "./header";
 
 function Location() {
+    const [zip, setZip] = useState("");
+    const [zone, setZone] = useState("");
+    const [plants, setPlants] = useState([]);
+
+    async function getPlants() {
+        try {
+            const res = await fetch("/api/plants");
+            const data = await res.json();
+            return data;
+        }
+        catch (err) {
+            console.error("Failed to load plants: ", err);
+        }
+    }
+
+    async function getPlantsInLocation() {
+        try {
+            if (navigator.geolocation) {
+                // gets zipcode
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+
+                const lat = position.coords.latitude;
+                const long = position.coords.longitude;
+
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&format=json`);
+                const data = await res.json();
+                const zip = data.address.postcode;
+                setZip(`Zipcode: ${zip}`);
+
+                // gets hardiness zone of zipcode
+                const res_zone = await fetch(`https://plant-hardiness-zone.p.rapidapi.com/zipcodes/${zip}`, {
+                    method: "GET",
+                    headers: {
+                        "x-rapidapi-key": "c487d7582fmshc6a2c58bbd736c1p136038jsn2e0ad6cfdb5d",
+                        "x-rapidapi-host": "plant-hardiness-zone.p.rapidapi.com"
+                }});
+                const data_zone = await res_zone.json();
+
+                const result = data_zone.hardiness_zone.match(/[a-zA-z]+|[0-9]+/g)
+                const zone = result[0];
+                setZone(`Hardiness zone: ${result.join('')}`);
+
+                // matches plants with hardiness zone
+                const plants = await getPlants();
+                const plants_filtered = [];
+                
+                for (let i = 0; i < plants.length; i++) {
+                    for (let j = 0; j < plants[i].locations.length; j++) {
+                        if (plants[i].locations[j] === zone) {
+                            console.log(plants[i].name, plants[i].locations);
+                            plants_filtered.push(plants[i]);
+                            break;
+                        }
+                    }
+                }
+                setPlants(plants_filtered);
+        
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+    
+    useEffect(() => {
+        
+    }, [])
+    
     return (
         <>
         < Header/>
         <div className="middle">
-        <h1>Location Time!</h1>
+            <h1 className="title_location">Share your location to get plants catered to you! </h1>
+            <button onClick={getPlantsInLocation} className="locate_button">Share Location</button>
+            <h1>{zip}</h1>
+            <h1>{zone}</h1>
+            <div className="featured">
+            {plants.map((plant) => (
+                <div key={plant.id} className="featured-img">
+                    <h3>{plant.name}</h3>
+                    <img src={plant.image} alt={plant.name}  />
+                </div>   
+            ))}
+            </div>
+        </div>
+        <div className="bottom">
+            <a href="/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

@@ -1,0 +1,31 @@
+.middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title_location {
+    margin-top: 150px;
+    color: var(--color-body-bottom);
+    text-align: center;
+    font-size: 70px;
+}
+
+.locate_button {
+  margin-top: 25px;
+  width: 100%;
+  max-width: 512px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: var(--color-foreground);
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.locate_button:hover {
+  background: var(--color-button-hover);
+}
