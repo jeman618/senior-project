@@ -9,6 +9,7 @@ function goToPlant(plantName) {
     window.location.href = "/src/plant.html";
 }
 
+// search function that lets users look for a specific plant
 function SearchHeader({ search, setSearch }) {
     return (
     <header>

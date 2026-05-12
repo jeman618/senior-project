@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import UserMenu from "./dropMenu.jsx";
 
-function Header() {
+function HomeHeader() {
     return (
     <header>
         <div className="title">
@@ -13,6 +13,21 @@ function Header() {
         
         <UserMenu />
     </header>
+    );
+}
+
+function Header() {
+    return (
+    <header>
+    <a href="index.html">
+    <div className="title">
+        <img className="logo" src="/images/logo.png" alt = ""/>
+        <h1>GardenGuru</h1>
+    </div>
+    </a>
+
+    <UserMenu />
+    </header> 
     );
 }
 
@@ -30,4 +45,4 @@ function UserHeader() {
 }
 
 export default Header;
-export { UserHeader };
+export { HomeHeader, UserHeader };

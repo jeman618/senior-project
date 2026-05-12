@@ -38,7 +38,7 @@ function Login() {
             }
             else {
                 const data = await res.json();
-                localStorage.setItem("token", data.token)
+                localStorage.setItem("token", data.token);
                 window.location.href = "index.html";
             }
             

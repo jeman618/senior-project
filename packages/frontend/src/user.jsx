@@ -20,6 +20,33 @@ function redirectToLogin() {
     window.location.href = "login.html";
 }
 
+async function DeleteAccount(user_id) {
+    try {
+        const res = await fetch("/api/users", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify({user_id})
+        });
+
+        if (res.status === 500) {
+            console.log("oh no");
+        }
+        else if (res.status === 401) {
+            redirectToLogin()
+        }
+        else {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+        }
+    }
+    catch (err) {
+
+    }
+}
+
 function headToFavorite(favoriteId) {
     localStorage.setItem("favoriteId", favoriteId);
     console.log("Favorite ID set to: ", localStorage.getItem("favoriteId"));
@@ -133,7 +160,7 @@ function User() {
         formState: { errors },
     } = useForm();
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState([]);
     const [password, setPassword] = useState("");
     const [favorites, setFavorites] = useState([]);
 
@@ -350,7 +377,7 @@ function User() {
         
         <div>
         <h2 className="user_button" onClick={() => Logout()}>Log Out</h2>
-        <h2 className="user_button">Delete Account</h2>
+        <h2 style={{ color: "red" }} className="user_button" onClick={() => DeleteAccount(user.id)}>Delete Account</h2>
         </div>
         
         </div>

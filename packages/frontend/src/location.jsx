@@ -4,6 +4,11 @@ import React, { useState, useEffect } from "react";
 import ReactDOMClient from "react-dom/client";
 import Header from "./header";
 
+function goToPlant(plantName) {
+    localStorage.setItem("plantName", plantName);
+    window.location.href = "/src/plant.html";
+}
+
 function Location() {
     const [zip, setZip] = useState("");
     const [zone, setZone] = useState("");
@@ -23,7 +28,7 @@ function Location() {
     async function getPlantsInLocation() {
         try {
             if (navigator.geolocation) {
-                // gets zipcode
+                // gets zipcode by getting latitude and longitude coordinates
                 const position = await new Promise((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve, reject);
                 });
@@ -56,7 +61,6 @@ function Location() {
                 for (let i = 0; i < plants.length; i++) {
                     for (let j = 0; j < plants[i].locations.length; j++) {
                         if (plants[i].locations[j] === zone) {
-                            console.log(plants[i].name, plants[i].locations);
                             plants_filtered.push(plants[i]);
                             break;
                         }
@@ -64,6 +68,9 @@ function Location() {
                 }
                 setPlants(plants_filtered);
         
+            }
+            else {
+
             }
         }
         catch (err) {
@@ -80,12 +87,13 @@ function Location() {
         < Header/>
         <div className="middle">
             <h1 className="title_location">Share your location to get plants catered to you! </h1>
+            <img src='https://thumbs.dreamstime.com/b/sunset-over-barley-fields-lush-green-growing-near-wadebridge-cornwall-54265128.jpg'/>
             <button onClick={getPlantsInLocation} className="locate_button">Share Location</button>
             <h1>{zip}</h1>
             <h1>{zone}</h1>
             <div className="featured">
             {plants.map((plant) => (
-                <div key={plant.id} className="featured-img">
+                <div key={plant.id} className="featured-img" onClick={() => goToPlant(plant.name)}>
                     <h3>{plant.name}</h3>
                     <img src={plant.image} alt={plant.name}  />
                 </div>   

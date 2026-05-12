@@ -102,6 +102,7 @@ function AddFav() {
             });
 
             const user_data = await user_res.json();
+            console.log(user_data);
             const userId = user_data.id;
             const names = selectedPlants.map(p => p.name);
 

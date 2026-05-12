@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";
-import Header from "./header.jsx";
+import { HomeHeader } from "./header.jsx";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
@@ -43,7 +43,7 @@ function Home() {
         }, []);
     return (
         <>
-        <Header />
+        <HomeHeader />
         <div className="middle">
         <div className="menu">
             <a href="/src/plants.html"><h1>All Plants</h1></a>
