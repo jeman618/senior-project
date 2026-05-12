@@ -17,23 +17,33 @@ function PlantTable(plant) {
                     <th>Zones</th>
                     <th>Calories</th>
                     <th>Growth Time (days)</th>
+                </tr>
+            </thead>
+            <tbody id="row-1"></tbody>
+            <thead>
+                <tr>
                     <th>Fat (g)</th>
                     <th>Carbs (g)</th>
                     <th>Fiber (g)</th>
                 </tr>
             </thead>
-            <tbody id="top"></tbody>
+            <tbody id="row-2"></tbody>
             <thead>
                 <tr>
                     <th>Protein (g)</th>
                     <th>Sugars (g)</th>
                     <th>Potassium (mg)</th>
+                </tr>
+            </thead>
+            <tbody id="row-3"></tbody>
+            <thead>
+                <tr>
                     <th>Magnesium (mg)</th>
                     <th>Calcium (mg)</th>
                     <th>Vitamin C (%)</th>
                 </tr>
             </thead>
-            <tbody id="bottom"></tbody>
+            <tbody id="row-4"></tbody>
             </table>
         </div>
         </>
@@ -67,32 +77,44 @@ function Plant() {
             const dataPlant = await dataRes.json();
             setPlantImg(dataPlant[0].image);
 
-            const tableTop = document.querySelector("#plant #top");
-            const tableBottom = document.querySelector("#plant #bottom");
+            const table1 = document.querySelector("#plant #row-1");
+            const table2 = document.querySelector("#plant #row-2");
+            const table3 = document.querySelector("#plant #row-3");
+            const table4 = document.querySelector("#plant #row-4");
 
             dataPlant.forEach(plant => {
                 const row1 = document.createElement("tr");
                 const row2 = document.createElement("tr");
+                const row3 = document.createElement("tr");
+                const row4 = document.createElement("tr");
 
                 row1.innerHTML = `
                     <td>${plant.locations}</td>
                     <td>${plant.kcal}</td>
                     <td>${plant.growth_time}</td>
+                `;
+                table1.appendChild(row1);
+
+                row2.innerHTML = `
                     <td>${plant.fat}</td>
                     <td>${plant.carbohydrates}</td>
                     <td>${plant.fiber}</td>
                 `;
-                tableTop.appendChild(row1);
+                table2.appendChild(row2);
 
-                row2.innerHTML = `
+                row3.innerHTML = `
                     <td>${plant.protein}</td>
                     <td>${plant.sugars}</td>
                     <td>${plant.potassium}</td>
+                `;
+                table3.appendChild(row3);
+
+                row4.innerHTML = `
                     <td>${plant.magnesium}</td>
                     <td>${plant.calcium}</td>
                     <td>${plant.vitamin_c}</td>
                 `;
-                tableBottom.appendChild(row2);
+                table4.appendChild(row4);
             });
         }
 

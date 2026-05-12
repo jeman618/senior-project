@@ -51,7 +51,10 @@ app.get("/users", async (req, res) => {
 app.get("/users/:id", async (req, res) => {
     const userId = req.params;
     try {
-        const users = await sql`SELECT * FROM users WHERE id = ${userId}`;
+        const users = await sql`
+            SELECT * FROM users 
+            WHERE id = ${userId}
+        `;
         res.json(users);
     } catch (err) {
         res.status(500).json({ message: "Server error" });
@@ -67,10 +70,11 @@ app.post("/update", async (req, res) => {
         const hashedPassword = await hashPassword(password);
 
         const data = await sql`
-        UPDATE users
-        SET name = ${name}, email = ${email}, password = ${hashedPassword}
-        WHERE id = ${id}
-        `
+            UPDATE users
+            SET name = ${name}, email = ${email}, password = ${hashedPassword}
+            WHERE id = ${id}
+        `;
+
         console.log("Updated user: ", name)
         res.json(data)
     }
@@ -88,17 +92,18 @@ app.get("/profile", async (req, res) => {
     }
 
     const token = authHeader.split(" ")[1];
-    
     try {
         const decoded = jwt.verify(token, process.env.SECRET_TOKEN)
         const data = await sql`
-        SELECT *
-        FROM users
-        WHERE id = ${decoded.id}
-        `
+            SELECT *
+            FROM users
+            WHERE id = ${decoded.id}
+        `;
+        
         if (!data || data.length === 0) {
             return res.status(404).json({ message: "User not found" });
         }
+        
         return res.json(data[0])
     }
     catch (err) {
@@ -109,6 +114,49 @@ app.get("/profile", async (req, res) => {
         }
 
         return res.status(500).json(err);
+    }
+});
+
+// removes a user and their favorites
+app.delete("/users", async (req, res) => {
+
+    const authHeader = req.headers.authorization;
+    const { user_id } = req.body;
+
+    if (!authHeader) {
+        return res.status(401).json({message: "No token provided"})
+    }
+    
+    try {
+        const favs = await sql`
+            SELECT f.id FROM favorites f
+            JOIN user_favorites_list ufl ON f.id = ufl.favorites_id
+            WHERE ufl.user_id = ${user_id}
+        `;
+        
+        await sql`
+            DELETE FROM users 
+            WHERE id = ${user_id}
+        `;
+
+        for (let i = 0; i < favs.length; i++) {
+            await sql`
+                DELETE FROM favorites 
+                WHERE id = ${favs[i].id}
+            `;
+
+            await sql`
+                DELETE FROM user_favorites_list 
+                WHERE favorites_id = ${favs[i].id} 
+                AND user_id = ${user_id}
+            `;
+        }
+
+        res.json({message: "User removed successfully"});
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({message: "Server error"});
     }
 });
 
@@ -168,12 +216,12 @@ app.post("/signup", async (req, res) => {
             SELECT id FROM users
             WHERE name = ${name} 
             AND email = ${email} 
-            AND password = ${passwod}
+            AND password = ${hashedPassword}
             ORDER BY id DESC
             LIMIT 1
         `
 
-        const token = generateAccessToken(newUser);
+        const token = generateAccessToken(newUser.id);
 
         res.json({token});
     } 
@@ -303,9 +351,9 @@ app.get("/favorites/:user_id", async (req, res) => {
 
     try {
         const favorites = await sql`
-        SELECT f.* FROM favorites f
-        JOIN user_favorites_list ufl ON f.id = ufl.favorites_id
-        WHERE ufl.user_id = ${user_id}
+            SELECT f.* FROM favorites f
+            JOIN user_favorites_list ufl ON f.id = ufl.favorites_id
+            WHERE ufl.user_id = ${user_id}
         `;
 
         if (favorites.length == 0) {
@@ -325,8 +373,8 @@ app.get("/favorite/:favorite_id", async (req, res) => {
 
     try {
         const favorites = await sql`
-        SELECT * FROM favorites
-        WHERE id = ${favorite_id}
+            SELECT * FROM favorites
+            WHERE id = ${favorite_id}
         `;
 
         if (favorites.length == 0) {
@@ -388,11 +436,14 @@ app.delete("/favorites", async (req, res) => {
     try {
         for (const id of selectedToRemove) {
             await sql`
-            DELETE FROM favorites WHERE id = ${id}
+                DELETE FROM favorites 
+                WHERE id = ${id}
             `;
 
             await sql`
-            DELETE FROM user_favorites_list WHERE user_id = ${user_id} AND favorites_id = ${id}
+                DELETE FROM user_favorites_list 
+                WHERE user_id = ${user_id} 
+                AND favorites_id = ${id}
             `;
         }
 

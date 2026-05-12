@@ -36,7 +36,9 @@ function Signup() {
                 setSignupError("An error occurred during signup");
                 return;
             }
-            else {  
+            else {
+                const data = await res.json();
+                localStorage.setItem("token", data.token);
                 window.location.href = "index.html";
             }
             
