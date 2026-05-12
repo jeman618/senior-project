@@ -1,3 +1,5 @@
+// packages/frontend/src/about.jsx
+
 import React from "react";
 import ReactDOMClient from "react-dom/client";
 import Header from "./header.jsx";
