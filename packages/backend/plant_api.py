@@ -9,7 +9,7 @@ api_key = "orSPiwlxKXVJismcPT9O3UDgfUi3g7rIvjnqBkma"
 
 query_params = {
     "api_key": api_key,
-    "query": "blueberry, raw",
+    "query": "zucchini, raw",
     "pageSize": 1,
 }
 
