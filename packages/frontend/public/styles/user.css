@@ -51,6 +51,14 @@
   align-items: center;
 }
 
+.row-edit {
+  display: grid;
+  text-align: left;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 0.008%;
+  align-items: center;
+}
+
 .row h1 {
   text-align: left;
 }

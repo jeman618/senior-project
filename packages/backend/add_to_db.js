@@ -71,9 +71,11 @@ async function setPlant() {
 
     await sql`
     INSERT INTO plant_pages (
-      name)
+      name
+    )
     VALUES (
-    ${data.name})`
+      ${data.name}
+    )`
     console.log("Inserted plant:", data.name);
     exit(0);
   });

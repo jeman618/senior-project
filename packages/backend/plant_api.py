@@ -3,13 +3,17 @@
 # Used to manually add plants to database by fetching data from USDA API
 import requests
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 api_url = "https://api.nal.usda.gov/fdc/v1/foods/search"
-api_key = "orSPiwlxKXVJismcPT9O3UDgfUi3g7rIvjnqBkma"
+api_key = os.getenv("PLANTS_API_KEY")
 
 query_params = {
     "api_key": api_key,
-    "query": "zucchini, raw",
+    "query": "potatoe, raw",
     "pageSize": 1,
 }
 

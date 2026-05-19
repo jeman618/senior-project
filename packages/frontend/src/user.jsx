@@ -103,7 +103,12 @@ function AccountInfo({
             <h1>Password</h1>
             <h2>{password}</h2>
         </div>
-        <h1 className="edit" onClick={() => handleEdit()}>Edit</h1>
+        <div className="row-edit">
+            <div></div>
+            <div></div>
+            <div></div>
+            <h1 className="edit" onClick={() => handleEdit()}>Edit</h1>
+        </div>
         </>
         ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -140,8 +145,10 @@ function AccountInfo({
                 placeholder="Enter password..." 
                 />
             </div>
-            <div className="row">
+            <div className="row-edit">
                 <button className="edit" type="submit">Confirm</button>
+                <div></div>
+                <div></div>
                 <button className="edit" onClick={() => handleCancelEdit()}>Cancel</button>
             </div>
             </form>

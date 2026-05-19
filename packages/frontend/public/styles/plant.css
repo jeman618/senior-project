@@ -37,6 +37,7 @@ td {
     height: auto;
     margin: 10px;
     border: 5px solid var(--color-primary);
+    background-color: var(--color-foreground);
 }
 
 .description {
