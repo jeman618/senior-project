@@ -84,10 +84,10 @@ function Location() {
     
     return (
         <>
-        < Header/>
+        <Header />
         <div className="middle">
             <h1 className="title_location">Share your location to get plants catered to you! </h1>
-            <img src='https://thumbs.dreamstime.com/b/sunset-over-barley-fields-lush-green-growing-near-wadebridge-cornwall-54265128.jpg'/>
+            <img className="location-img" src='/images/location.png' alt="Sun over fields"/>
             <button onClick={getPlantsInLocation} className="locate_button">Share Location</button>
             <h1>{zip}</h1>
             <h1>{zone}</h1>
