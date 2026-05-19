@@ -11,3 +11,6 @@ The reasoning behind this idea is that I have spent considerable time in the agr
 
 # Design:
 [design.pdf](https://github.com/user-attachments/files/27413889/design.pdf)
+
+# Document Outline:
+[outline.pdf](https://github.com/user-attachments/files/28029081/outline.pdf)
