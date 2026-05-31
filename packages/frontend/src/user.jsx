@@ -376,11 +376,6 @@ function User() {
             <FavoriteMenu />
         </div>
         {renderFavorites(favorites)}
-
-        <h1>Add New Plant</h1>
-        <div className="card">
-            <h3>Add any plants you wish other users can grow! Just make sure you are an expert</h3>
-        </div>
         
         <div>
         <h2 className="user_button" onClick={() => Logout()}>Log Out</h2>
