@@ -16,12 +16,12 @@ function isTokenValid(token) {
 
 function redirectToLogin() {
     localStorage.removeItem("token");
-    window.location.href = "/garden-guru/login.html";
+    window.location.href = "login.html";
 }
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/garden-guru/src/plant.html";
+    window.location.href = "/senior-project/src/plant.html";
 }
 
 function Favorite() {
@@ -102,7 +102,7 @@ function Favorite() {
         </div>
         </div>
         <div className="bottom">
-            <a href="/garden-guru/src/about.html"><h1>About Us</h1></a>
+            <a href="/senior-project/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

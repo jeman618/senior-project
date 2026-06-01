@@ -14,11 +14,11 @@ function isTokenValid(token) {
 
 function redirectToLogin() {
     localStorage.removeItem("token");
-    window.location.href = "/garden-guru/login.html";
+    window.location.href = "login.html";
 }
 
 function goBack() {
-    window.location.href = "/garden-guru/user.html"
+    window.location.href = "user.html"
 }
 
 function AddFav() {

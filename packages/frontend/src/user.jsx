@@ -17,7 +17,7 @@ function isTokenValid(token) {
 
 function redirectToLogin() {
     localStorage.removeItem("token");
-    window.location.href = "/garden-guru/login.html";
+    window.location.href = "login.html";
 }
 
 async function DeleteAccount(user_id) {
@@ -39,7 +39,7 @@ async function DeleteAccount(user_id) {
         }
         else {
             localStorage.removeItem("token");
-            window.location.href = "/garden-guru/index.html";
+            window.location.href = "index.html";
         }
     }
     catch (err) {
@@ -50,7 +50,7 @@ async function DeleteAccount(user_id) {
 function headToFavorite(favoriteId) {
     localStorage.setItem("favoriteId", favoriteId);
     console.log("Favorite ID set to: ", localStorage.getItem("favoriteId"));
-    window.location.href = "/garden-guru/favorite.html";
+    window.location.href = "favorite.html";
 }
 
 async function getFavorites(user_id) {
@@ -66,7 +66,7 @@ async function getFavorites(user_id) {
 }
 
 function goAddFav() {
-    window.location.href = "/garden-guru/addfav.html";
+    window.location.href = "addfav.html";
 }
 
 // Handles whether user is in edit mode or not
@@ -88,7 +88,7 @@ function AccountInfo({
         <div className="row">
         <h1>Profile</h1>
             <img className="profile-img" src={
-                hasProfile ? (user.image) : ("/garden-guru/images/logo.png")
+                hasProfile ? (user.image) : ("/senior-project/images/logo.png")
                 } alt=""/>
         </div>
         <div className="row">
@@ -115,7 +115,7 @@ function AccountInfo({
             <div className="row">
             <h1>Profile</h1>
             <img className="profile-img" src={
-                hasProfile ? (user.image) : ("/garden-guru/images/logo.png")
+                hasProfile ? (user.image) : ("/senior-project/images/logo.png")
                 } alt=""/>
             </div>
             <div className="row">
@@ -205,7 +205,7 @@ function User() {
             console.log("Could not update data");
             return;
         }
-        window.location.href = "/garden-guru/user.html"
+        window.location.href = "user.html"
     };
 
     function handleRemoveClick() {
@@ -246,7 +246,7 @@ function User() {
         });
 
         if (res.status == 200) {
-            window.location.href = "/garden-guru/user.html";
+            window.location.href = "user.html";
         }
 
         setIsRemoving(false);

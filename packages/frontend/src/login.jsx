@@ -39,7 +39,7 @@ function Login() {
             else {
                 const data = await res.json();
                 localStorage.setItem("token", data.token);
-                window.location.href = "/garden-guru/index.html";
+                window.location.href = "index.html";
             }
             
         }
@@ -60,7 +60,7 @@ function Login() {
             <div className="card">
                 
                 <div>
-                <img src="/garden-guru/images/logo.png" alt = ""/>
+                <img src="/senior-project/images/logo.png" alt = ""/>
                 <h1>LOG IN</h1>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +77,7 @@ function Login() {
                     />
 
                     <div className="pw">
-                        <div className="forgot" onClick={() => window.location.href="/garden-guru/forgot_pwd.html"}>
+                        <div className="forgot" onClick={() => window.location.href="forgot_pwd.html"}>
                         Forgot Password?
                         </div>
                         
@@ -96,7 +96,7 @@ function Login() {
 
                     <input type="submit" className="loginBtn" value="Login" />
                     <p className="signup">
-                        Don't have an account? <span onClick={()=> window.location.href="/garden-guru/signup.html"}>
+                        Don't have an account? <span onClick={()=> window.location.href="signup.html"}>
                             Sign Up</span>
                     </p>
                 </form>

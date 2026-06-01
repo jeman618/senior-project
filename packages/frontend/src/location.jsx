@@ -6,7 +6,7 @@ import Header from "./header";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/garden-guru/src/plant.html";
+    window.location.href = "/src/plant.html";
 }
 
 function Location() {
@@ -87,7 +87,7 @@ function Location() {
         <Header />
         <div className="middle">
             <h1 className="title_location">Share your location to get plants catered to you! </h1>
-            <img className="location-img" src='/images/location.png' alt="Sun over fields"/>
+            <img className="location-img" src='/senior-project/images/location.png' alt="Sun over fields"/>
             <button onClick={getPlantsInLocation} className="locate_button">Share Location</button>
             <h1>{zip}</h1>
             <h1>{zone}</h1>
@@ -101,7 +101,7 @@ function Location() {
             </div>
         </div>
         <div className="bottom">
-            <a href="/src/about.html"><h1>About Us</h1></a>
+            <a href="/senior-project/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

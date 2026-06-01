@@ -60,7 +60,7 @@ function Pwd() {
         <>
         <div className="page">
             <div className="card">
-                <img src="/garden-guru/images/logo.png" alt = ""/>
+                <img src="/senior-project/images/logo.png" alt = ""/>
                 <h1>CHANGE PASSWORD</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <input

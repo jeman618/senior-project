@@ -2,7 +2,7 @@
 
 function Logout() {
     localStorage.removeItem("token");
-    window.location.href = "/garden-guru/index.html"
+    window.location.href = "index.html"
 }
 
 export default Logout

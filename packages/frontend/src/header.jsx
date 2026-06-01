@@ -7,7 +7,7 @@ function HomeHeader() {
     return (
     <header>
         <div className="title">
-            <img className="logo" src="/garden-guru/images/logo.png" alt = ""/>
+            <img className="logo" src="/senior-project/images/logo.png" alt = ""/>
             <h1>GardenGuru</h1>
         </div>
         
@@ -21,7 +21,7 @@ function Header() {
     <header>
     <a href="index.html">
     <div className="title">
-        <img className="logo" src="/garden-guru/images/logo.png" alt = ""/>
+        <img className="logo" src="/senior-project/images/logo.png" alt = ""/>
         <h1>GardenGuru</h1>
     </div>
     </a>
@@ -36,7 +36,7 @@ function UserHeader() {
     <header>
     <a href="index.html">
     <div className="title">
-        <img className="logo" src="/garden-guru/images/logo.png" alt = ""/>
+        <img className="logo" src="/senior-project/images/logo.png" alt = ""/>
         <h1>GardenGuru</h1>
     </div>
     </a>
