@@ -7,7 +7,7 @@ import Header from "./header";
 function goToFavorite(favoriteId) {
     localStorage.setItem("favoriteId", favoriteId);
     console.log("Favorite ID set to: ", localStorage.getItem("favoriteId"));
-    window.location.href = "favorite.html";
+    window.location.href = "/garden-guru/favorite.html";
 }
 
 function Recommended() {
@@ -69,7 +69,7 @@ function Recommended() {
             })}
         </div>
         <div className="bottom">
-            <a href="/src/about.html"><h1>About Us</h1></a>
+            <a href="/garden-guru/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

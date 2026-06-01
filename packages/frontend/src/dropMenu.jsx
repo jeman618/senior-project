@@ -35,7 +35,7 @@ function UserMenu() {
     const handleLogout = () => {
         setIsLoggedIn(false);
         localStorage.removeItem("token");
-        window.location.href = "index.html"
+        window.location.href = "/garden-guru/index.html"
     };
 
     return (
@@ -45,12 +45,12 @@ function UserMenu() {
         <div className="dropdown-content">
         {!isLoggedIn ? (
             <>
-            <a href="/src/login.html"><p>Log In</p></a>
-            <a href="/src/signup.html"><p>Sign Up</p></a>
+            <a href="/garden-guru/src/login.html"><p>Log In</p></a>
+            <a href="/garden-guru/src/signup.html"><p>Sign Up</p></a>
             </>
         ) : (
             <>
-            <a href="/src/user.html"><p>Profile</p></a>
+            <a href="/garden-guru/src/user.html"><p>Profile</p></a>
             <p onClick={handleLogout}>Log Out</p>
             </>
         )}

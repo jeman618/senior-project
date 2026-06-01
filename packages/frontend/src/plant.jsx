@@ -65,7 +65,7 @@ function Plant() {
 
             if (res.status === 404) {
                 console.error("Plant not found: ", plant);
-                window.location.href = "index.html";
+                window.location.href = "/garden-guru/index.html";
                 return;
             }
 
@@ -155,7 +155,7 @@ function Plant() {
             </div>
             </div>
             <div className="bottom">
-                <a href="/src/about.html"><h1>About Us</h1></a>
+                <a href="/garden-guru/src/about.html"><h1>About Us</h1></a>
             </div>
         </>
     );

@@ -18,7 +18,7 @@ function About() {
             <p>Our team of experts is passionate about gardening and technology, and we are committed to making a user-friendly platform
                 that connects users to nature and helps them grow their own plants, whether they are seasoned gardeners or just starting out.</p>
             <p>Thank you for choosing GardenGuru. We hope you find our resources helpful in your gardening journey!</p>
-            <img className="logo-img" src="/images/logo.png" alt="GardenGuru's Logo"/>
+            <img className="logo-img" src="/garden-guru/images/logo.png" alt="GardenGuru's Logo"/>
         </div>
         </>
     );

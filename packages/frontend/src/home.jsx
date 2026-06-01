@@ -6,7 +6,7 @@ import { HomeHeader } from "./header.jsx";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/src/plant.html";
+    window.location.href = "/garden-guru/src/plant.html";
 }
 
 function getFeatured(plants) {
@@ -46,13 +46,13 @@ function Home() {
         <HomeHeader />
         <div className="middle">
         <div className="menu">
-            <a href="/src/plants.html"><h1>All Plants</h1></a>
-            <a href="/src/recommended.html"><h1>User Recommended</h1></a>
-            <a href="/src/location.html"><h1>Plants For You</h1></a>
+            <a href="/garden-guru/src/plants.html"><h1>All Plants</h1></a>
+            <a href="/garden-guru/src/recommended.html"><h1>User Recommended</h1></a>
+            <a href="/garden-guru/src/location.html"><h1>Plants For You</h1></a>
         </div>
         <hr></hr>
         <div className="promo">
-            <img className="promo-img" src="/images/promo.png" alt=""/>
+            <img className="promo-img" src="/garden-guru/images/promo.png" alt=""/>
             <div className="promo-txt">Learn to grow your favorite plants!</div>
         </div>
         <h1 className="featured-title">Featured Plants</h1>
@@ -60,7 +60,7 @@ function Home() {
         <br></br>
         </div>
         <div className="bottom">
-            <a href="/src/about.html"><h1>About Us</h1></a>
+            <a href="/garden-guru/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );

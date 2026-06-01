@@ -39,7 +39,7 @@ function Signup() {
             else {
                 const data = await res.json();
                 localStorage.setItem("token", data.token);
-                window.location.href = "index.html";
+                window.location.href = "/garden-guru/index.html";
             }
             
         }
@@ -58,7 +58,7 @@ function Signup() {
         <>
         <div className="page">
             <div className="card">
-                <img src="/images/logo.png" alt = ""/>
+                <img src="/garden-guru/images/logo.png" alt = ""/>
                 <h1>SIGN UP</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <input

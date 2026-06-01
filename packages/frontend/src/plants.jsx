@@ -6,16 +6,16 @@ import UserMenu from "./dropMenu.jsx";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/src/plant.html";
+    window.location.href = "/garden-guru/src/plant.html";
 }
 
 // search function that lets users look for any plants that match what's searched
 function SearchHeader({ search, setSearch }) {
     return (
     <header>
-        <a href="index.html">
+        <a href="/garden-guru/index.html">
         <div className="title">
-            <img className="logo" src="/images/logo.png" alt = ""/>
+            <img className="logo" src="/garden-guru/images/logo.png" alt = ""/>
             <h1>GardenGuru</h1>
         </div>
         </a>
@@ -69,7 +69,7 @@ function Plants() {
         </div>
         </div>
         <div className="bottom">
-            <a href="/src/about.html"><h1>About Us</h1></a>
+            <a href="/garden-guru/src/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );
