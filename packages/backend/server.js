@@ -12,8 +12,8 @@ dotenv.config();
 const app = express();
 const port = 8000;
 const allowedOrigins = [
-    `http://localhost:5173`,
-    `https://jeman618.github.io`
+    "http://localhost:5173",
+    "https://jeman618.github.io"
 ];
 
 function generateAccessToken(user) {
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
 });
 
 // === USERS ENDPOINTS ===
-app.get("/users", async (req, res) => {
+app.get("/api/users", async (req, res) => {
     try {
         const users = await sql`SELECT * FROM users`;
         res.json(users);
@@ -49,7 +49,7 @@ app.get("/users", async (req, res) => {
     }
 });
 
-app.get("/users/:id", async (req, res) => {
+app.get("/api/users/:id", async (req, res) => {
     const userId = req.params;
     try {
         const users = await sql`
@@ -64,7 +64,7 @@ app.get("/users/:id", async (req, res) => {
 
 
 // updates user information
-app.post("/update", async (req, res) => {
+app.post("/api/update", async (req, res) => {
     const { id, name, email, password } = req.body
 
     try {
@@ -85,7 +85,7 @@ app.post("/update", async (req, res) => {
 });
 
 // gets user information only meant to be seen by same user
-app.get("/profile", async (req, res) => {
+app.get("/api/profile", async (req, res) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -119,7 +119,7 @@ app.get("/profile", async (req, res) => {
 });
 
 // removes a user and their favorites
-app.delete("/users", async (req, res) => {
+app.delete("/api/users", async (req, res) => {
 
     const authHeader = req.headers.authorization;
     const { user_id } = req.body;
@@ -162,7 +162,7 @@ app.delete("/users", async (req, res) => {
 });
 
 // logs user into account
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -193,7 +193,7 @@ app.post("/login", async (req, res) => {
 });
 
 // signs up user
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
     const { name, email, password } = req.body;
     
     try {
@@ -232,7 +232,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // changes the password of the current user
-app.post("/password", async (req, res) => {
+app.post("/api/password", async (req, res) => {
     const { email, newPwd, retypedPwd } = req.body;
     
     if (newPwd != retypedPwd) {
@@ -272,7 +272,7 @@ app.post("/password", async (req, res) => {
 });
 
 // === PLANTS ENDPOINTS ===
-app.get("/plants", async (req, res) => {
+app.get("/api/plants", async (req, res) => {
     try {
         const plants = await sql`
             SELECT * FROM plants
@@ -285,7 +285,7 @@ app.get("/plants", async (req, res) => {
 });
 
 // gets individual plant based on name
-app.get("/plants/:name", async (req, res) => {
+app.get("/api/plants/:name", async (req, res) => {
     const { name } = req.params;
 
     try {
@@ -306,7 +306,7 @@ app.get("/plants/:name", async (req, res) => {
 
 // === PLANT PAGES ENDPOINTS ===
 // gets plant information to make page
-app.get("/pages/:name", async (req, res) => {
+app.get("/api/pages/:name", async (req, res) => {
     const { name } = req.params;
 
     try {
@@ -326,7 +326,7 @@ app.get("/pages/:name", async (req, res) => {
 });
 
 // === FAVORITES ENDPOINTS ===
-app.get("/favorites", async (req, res) => {
+app.get("/api/favorites", async (req, res) => {
 
     try {
         const favorites = await sql`
@@ -347,7 +347,7 @@ app.get("/favorites", async (req, res) => {
 });
 
 // gets favorites from an individual user
-app.get("/favorites/:user_id", async (req, res) => {
+app.get("/api/favorites/:user_id", async (req, res) => {
     const { user_id } = req.params
 
     try {
@@ -369,7 +369,7 @@ app.get("/favorites/:user_id", async (req, res) => {
 });
 
 // gets individual favorite
-app.get("/favorite/:favorite_id", async (req, res) => {
+app.get("/api/favorite/:favorite_id", async (req, res) => {
     const { favorite_id } = req.params
 
     try {
@@ -390,7 +390,7 @@ app.get("/favorite/:favorite_id", async (req, res) => {
 });
 
 // inserts new favorite (under construction)
-app.post("/favorites", async (req, res) => {
+app.post("/api/favorites", async (req, res) => {
     const { name, description, selectedPlants, user_id } = req.body;
     try {
         await sql`
@@ -431,7 +431,7 @@ app.post("/favorites", async (req, res) => {
 });
 
 // removes a favorite list(s)
-app.delete("/favorites", async (req, res) => {
+app.delete("/api/favorites", async (req, res) => {
     const { selectedToRemove, user_id } = req.body;
     
     try {
