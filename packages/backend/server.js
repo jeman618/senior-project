@@ -9,13 +9,11 @@ import { hashPassword, comparePassword } from "./hashing.js";
 
 dotenv.config();
 
-const API_URL = import.meta.env.BACKEND_URL;
-
 const app = express();
 const port = 8000;
 const allowedOrigins = [
     `http://localhost:5173`,
-    API_URL
+    `https://jeman618.github.io`
 ];
 
 function generateAccessToken(user) {
