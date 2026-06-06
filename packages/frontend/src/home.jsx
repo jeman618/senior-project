@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";
 import { HomeHeader } from "./header.jsx";
 
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.BACKEND_URL;
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
@@ -48,8 +48,8 @@ function Home() {
         <HomeHeader />
         <div className="middle">
         <div className="menu">
-            <a href="/senior-project/plants.html"><h1>All Plants</h1></a>
-            <a href="/senior-project/recommended.html"><h1>User Recommended</h1></a>
+            <a href="/senior-project/src/plants.html"><h1>All Plants</h1></a>
+            <a href="/senior-project/src/recommended.html"><h1>User Recommended</h1></a>
             <a href="/senior-project/location.html"><h1>Plants For You</h1></a>
         </div>
         <hr></hr>

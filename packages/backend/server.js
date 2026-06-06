@@ -9,7 +9,7 @@ import { hashPassword, comparePassword } from "./hashing.js";
 
 dotenv.config();
 
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.BACKEND_URL;
 
 const app = express();
 const port = 8000;
