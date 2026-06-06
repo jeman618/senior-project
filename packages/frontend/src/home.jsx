@@ -4,9 +4,11 @@ import React, {useState, useEffect} from "react";
 import ReactDOMClient from "react-dom/client";
 import { HomeHeader } from "./header.jsx";
 
+const API_URL = import.meta.env.API_URL;
+
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/senior-project/src/plant.html";
+    window.location.href = "/senior-project/plant.html";
 }
 
 function getFeatured(plants) {
@@ -30,7 +32,7 @@ function Home() {
         useEffect(() => {
             async function getPlants() {
             try {
-                const res = await fetch("/api/plants");
+                const res = await fetch(`${API_URL}/api/plants`);
                 const plants = await res.json();
 
                 setPlant(plants);
@@ -46,9 +48,9 @@ function Home() {
         <HomeHeader />
         <div className="middle">
         <div className="menu">
-            <a href="/senior-project/src/plants.html"><h1>All Plants</h1></a>
-            <a href="/senior-project/src/recommended.html"><h1>User Recommended</h1></a>
-            <a href="/senior-project/src/location.html"><h1>Plants For You</h1></a>
+            <a href="/senior-project/plants.html"><h1>All Plants</h1></a>
+            <a href="/senior-project/recommended.html"><h1>User Recommended</h1></a>
+            <a href="/senior-project/location.html"><h1>Plants For You</h1></a>
         </div>
         <hr></hr>
         <div className="promo">
@@ -60,7 +62,7 @@ function Home() {
         <br></br>
         </div>
         <div className="bottom">
-            <a href="/senior-project/src/about.html"><h1>About Us</h1></a>
+            <a href="/senior-project/about.html"><h1>About Us</h1></a>
         </div>
         </>
     );
