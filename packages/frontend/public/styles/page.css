@@ -31,7 +31,8 @@ img {
 }
 
 hr {
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     border: none;
     border-top: 10px solid var(--color-favorites);
 }
@@ -135,13 +136,15 @@ hr {
 .promo {
     position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .promo-img {
-    width: 100%;
+    width: 80%;
     height: 700px;
     filter: brightness(60%);
+    border: 5px solid var(--color-primary);
 }
 
 .promo-txt {
@@ -214,12 +217,6 @@ hr {
     margin-top: auto;
     margin-bottom: auto;
     background-color: var(--color-foreground);
-    border: 5px solid var(--color-primary);
-}
-
-.location-img {
-    width: 70%;
-    height: auto;
     border: 5px solid var(--color-primary);
 }
 

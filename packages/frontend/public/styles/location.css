@@ -29,3 +29,9 @@
 .locate_button:hover {
   background: var(--color-button-hover);
 }
+
+.location-img {
+    width: 50%;
+    height: auto;
+    border: 5px solid var(--color-primary);
+}
