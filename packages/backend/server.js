@@ -207,21 +207,13 @@ app.post("/signup", async (req, res) => {
 
         const hashedPassword = await hashPassword(password);
 
-        await sql`
+        const newUser = await sql`
             INSERT INTO users (name, email, password)
             VALUES (${name}, ${email}, ${hashedPassword})
-        `;
-
-        const newUser = await sql`
-            SELECT id FROM users
-            WHERE name = ${name} 
-            AND email = ${email} 
-            AND password = ${hashedPassword}
-            ORDER BY id DESC
-            LIMIT 1
+            RETURNING id
         `
 
-        const token = generateAccessToken(newUser.id);
+        const token = generateAccessToken(newUser[0].id);
 
         res.json({token});
     } 

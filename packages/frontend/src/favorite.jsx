@@ -30,23 +30,23 @@ function Favorite() {
 
     useEffect(() => {
         async function loadFavorite() {
-            const token = localStorage.getItem("token");
+            // const token = localStorage.getItem("token");
             
-            if (!token || !isTokenValid(token)) {
-                redirectToLogin();
-                return;
-            }
+            // if (!token || !isTokenValid(token)) {
+            //     redirectToLogin();
+            //     return;
+            // }
 
-            const user_res = await fetch("/api/users/profile", {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            })
+            // const user_res = await fetch("/api/users/profile", {
+            //     headers: {
+            //         Authorization: "Bearer " + localStorage.getItem("token")
+            //     }
+            // })
 
-            if (user_res.status === 404 || user_res.status === 401) {
-                redirectToLogin();
-                return;
-            }
+            // if (user_res.status === 404 || user_res.status === 401) {
+            //     redirectToLogin();
+            //     return;
+            // }
 
             const favorite_id = localStorage.getItem("favoriteId");
             const res = await fetch(`/api/favorite/${favorite_id}`)

@@ -6,7 +6,7 @@ import Header from "./header";
 
 function goToPlant(plantName) {
     localStorage.setItem("plantName", plantName);
-    window.location.href = "/src/plant.html";
+    window.location.href = "/senior-project/src/plant.html";
 }
 
 function Location() {
