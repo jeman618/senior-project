@@ -32,7 +32,7 @@ async function DeleteAccount(user_id) {
         });
 
         if (res.status === 500) {
-            console.log("oh no");
+            console.log("Internal server error.");
         }
         else if (res.status === 401) {
             redirectToLogin()
@@ -78,6 +78,7 @@ function AccountInfo({
     register,
     handleEdit,
     handleCancelEdit,
+    updateError,
     handleSubmit,
     onSubmit
 }) {
@@ -102,6 +103,10 @@ function AccountInfo({
         <div className="row">
             <h1>Password</h1>
             <h2>{password}</h2>
+        </div>
+        <div className="row">
+            <div></div>
+            {updateError && <span className="error">{updateError}</span>}
         </div>
         <div className="row-edit">
             <div></div>
@@ -139,7 +144,7 @@ function AccountInfo({
             <div className="row">
                 <h1>Password</h1>
                 <input 
-                type="text"
+                type="password"
                 className="user_input"
                 {...register("password", { required: true })}
                 placeholder="Enter password..." 
@@ -172,6 +177,7 @@ function User() {
     const [favorites, setFavorites] = useState([]);
 
     const [editMode, setEditMode] = useState(false);
+    const [updateError, setUpdateError] = useState("");
 
     const [hasProfile, setHasProfile] = useState(false);
 
@@ -182,6 +188,7 @@ function User() {
         setValue("name", user.name);
         setValue("email", user.email);
         setValue("password");
+        setUpdateError("");
         setEditMode(true);
     }
 
@@ -201,11 +208,19 @@ function User() {
 
         setEditMode(false);
 
-        if (!res.ok) {
+        if (res.status == 401) {
+            setUpdateError("Incorrect Password");
+            return;
+        }
+
+        else if (!res.ok) {
             console.log("Could not update data");
             return;
         }
-        window.location.href = "user.html"
+        else {
+            setUpdateError("");
+            window.location.href = "user.html"
+        }
     };
 
     function handleRemoveClick() {
@@ -365,6 +380,7 @@ function User() {
                 register={register}
                 handleEdit={handleEdit}
                 handleCancelEdit={handleCancelEdit}
+                updateError={updateError}
                 handleSubmit={handleSubmit}
                 onSubmit={onSubmit}
                 />

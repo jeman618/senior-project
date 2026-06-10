@@ -67,16 +67,29 @@ app.post("/update", async (req, res) => {
     const { id, name, email, password } = req.body
 
     try {
+        const users = await sql`
+            SELECT * FROM users
+            WHERE id = ${id} 
+        `;
+
+        const user = users[0];
+
         const hashedPassword = await hashPassword(password);
 
-        const data = await sql`
+        const match = await comparePassword(password, user.password);
+
+        if (!match) {
+            return res.status(401).json({ message: "Wrong password" });
+        }
+
+        const updatedUser = await sql`
             UPDATE users
-            SET name = ${name}, email = ${email}, password = ${hashedPassword}
+            SET name = ${name}, email = ${email}
             WHERE id = ${id}
         `;
 
         console.log("Updated user: ", name)
-        res.json(data)
+        res.json(updatedUser)
     }
     catch (err) {
         res.status(500).json({message: "Server error"});

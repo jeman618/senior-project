@@ -59,6 +59,12 @@
   align-items: center;
 }
 
+.error {
+  color: var(--color-error);
+  margin: 0px;
+  font-size: 40px;
+}
+
 .row h1 {
   text-align: left;
 }
