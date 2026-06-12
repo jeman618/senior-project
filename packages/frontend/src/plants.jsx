@@ -59,6 +59,11 @@ function Plants() {
         <>
         <SearchHeader search={search} setSearch={SetSearch}/>
         <div className="middle">
+            <div className="menu">
+            <a href="/senior-project/src/recommended.html"><h1 style={{textAlign: "center"}}>User Recommended</h1></a>
+            <a href="/senior-project/src/location.html"><h1 style={{textAlign: "center"}}>Plants For You</h1></a>
+            </div>
+            <hr></hr>
         <div className="featured">
             {filteredPlants.map((plant) => (
                 <div key={plant.id} className="featured-img" onClick={() =>goToPlant(plant.name)}>

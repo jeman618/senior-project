@@ -86,6 +86,11 @@ function Location() {
         <>
         <Header />
         <div className="middle">
+        <div className="menu">
+            <a href="/senior-project/src/plants.html"><h1>All Plants</h1></a>
+            <a href="/senior-project/src/recommended.html"><h1>User Recommended</h1></a>
+        </div>
+        <hr></hr>
             <h1 className="title_location">Share your location to get plants catered to you! </h1>
             <img className="location-img" src='/senior-project/images/location.png' alt="Sun over fields"/>
             <button onClick={getPlantsInLocation} className="locate_button">Share Location</button>

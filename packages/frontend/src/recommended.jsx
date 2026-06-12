@@ -53,7 +53,11 @@ function Recommended() {
     return (
         <>
         <Header />
-        <h1 className="title_recommended">Recommended</h1>
+        <div className="menu">
+            <a href="/senior-project/src/plants.html"><h1>All Plants</h1></a>
+            <a href="/senior-project/src/location.html"><h1>Plants For You</h1></a>
+        </div>
+        <hr></hr>
         <div className="middle">
             {data.map((list, index) => {
                 const userName = Object.keys(list)[0];

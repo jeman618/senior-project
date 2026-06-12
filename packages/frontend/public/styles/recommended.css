@@ -1,10 +1,9 @@
 /* packages/frontend/styles/recommended.css */
 
-.title_recommended {
+.menu {
     margin-top: 150px;
-    color: var(--color-primary);
-    text-align: center;
-    font-size: 70px;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .middle {
@@ -15,6 +14,7 @@
     margin-right: 20px;
     gap: 5%;
     justify-items: center;
+    margin-bottom: 300px;
 }
 
 .card {

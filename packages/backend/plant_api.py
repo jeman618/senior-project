@@ -13,7 +13,7 @@ api_key = os.getenv("PLANTS_API_KEY")
 
 query_params = {
     "api_key": api_key,
-    "query": "potatoe, raw",
+    "query": "grape, raw",
     "pageSize": 1,
 }
 

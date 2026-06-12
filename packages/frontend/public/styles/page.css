@@ -75,14 +75,21 @@ hr {
 
 .menu {
     display: flex;
-    justify-content: space-evenly;
-    gap: 5%;
-    margin-top: 150px;
+    width: 100%;
+    justify-content: space-between;
+    text-align: center;
     font-size: 1rem;
 }
 
 .menu a {
+    flex: 1;
     color: var(--color-favorites);
+    text-decoration: none;
+}
+
+.menu h1 {
+    text-align: center;
+    margin: 0;
 }
 
 .dropdown {
